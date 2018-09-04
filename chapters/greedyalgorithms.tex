@@ -1,0 +1,31 @@
+\section{Huffman codes}
+
+\subsection{The Problem}
+
+Consider this problem - you have a message - suppose 
+
+\begin{center}
+\texttt{I cannot meet you today. Lets meet tomorrow. - Jamie}
+\end{center}
+
+and you want to send this to your friend. 
+Unfortunately, the cost to send messages is expensive (think of the mobile phone fees...) - how do you minimize the cost of sending this message given that you can tell your friend its encoding in advance.
+Naturally, computers store data in binary form - \texttt{001011....} so it would be ideal to encode this string to binary. But, how do you find an optimal encoding - one that takes the least space.
+
+Another problem is ambiguity. Suppose you have a message \texttt{hello world}, and suppose that your encoding maps \texttt{h} to \texttt{0} and \texttt{e} to \texttt{001}. and \texttt{1} to the character \texttt{o}. 
+Hence our message would be encoded as 
+\texttt{0001...}
+
+Unfortunately, given this code alone, we cannot differentiate between \texttt{hhho...} and \texttt{he...} as both of them produces the same binary output. 
+
+\subsection{Removing ambiguity}
+
+Consider above that if we see the code \texttt{0..}, this can either mean the character \texttt{h} or some other character that also starts with \texttt{0}. We want to remove this ambiguity by adding the following constraint:
+
+\begin{define}
+    Let $\Sigma \neq \emptyset$ the set of characters in our message, let $\phi: \Sigma \to \cbr{0, 1}^*$ our encoding where $\cbr{0, 1}^*$ is the set of all binary messages. 
+    Then $\phi$ is called ``prefix-free'' if for all $a, b \in \Sigma$ such that $a \neq b$, $\phi(a)$ is not a prefix of $\phi(b)$ (and vice versa... since $a, b$ are arbitrary)
+\end{define}
+
+Now, if we see some coded message \texttt{*****010.....} and we know that \texttt{*****} is mapped to a particular character, then our message contains that character since no other character can be encoded beginning with \texttt{*****} due to the above definition. Thus, we remove ambiguity and can iterative decode message based on the shortest encoding match. 
+

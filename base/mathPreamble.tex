@@ -1,0 +1,220 @@
+\ifx\NOPACKAGES\undefined
+\usepackage{fancyhdr}
+\usepackage{commath}
+\usepackage{mathtools}
+\usepackage[style=ieee]{biblatex}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\usepackage{marvosym}
+\usepackage{amsthm}
+\usepackage[inline]{asymptote}
+
+\ifxetex
+\usepackage{anyfontsize}
+\usepackage{fontspec}
+\else
+\usepackage[utf8]{inputenc}
+\fi
+
+\ifdefined\LIBERTINE
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+\usepackage[scaled=0.96]{zi4}
+\usepackage[libertine]{newtxmath}
+\fi
+
+\usepackage{systeme}
+\usepackage{cancel}
+\usepackage{gauss}
+\usepackage[numbered]{bookmark}
+\usepackage{mathrsfs}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{alltt}
+
+    \ifdefined\ENABLEALGORITHMS
+    \usepackage{algorithm}
+    \usepackage[noend]{algpseudocode}
+    \usepackage{float}
+    \fi
+
+\fi
+
+
+
+\ifdefined\CROWDMARK
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage} % crowdmark pagebreak
+\fi
+
+\ifx\EXCLUDEDEFAULTBIB\undefined
+\addbibresource{./../../base/base.bib}
+\fi
+
+\ifx\NOFANCY\undefined
+\pagestyle{fancy}
+\fancyhead[L]{Assignment \assignmentnum}
+\fancyhead[R]{\coursename}
+\renewcommand{\footrulewidth}{0.4pt}
+\fi
+
+\newcommand{\solution}{\subsubsection*{Solution}}
+\newcommand{\parttitle}[1]{\subsection*{Part {#1}}}
+\newcommand{\intr}[2]{\int_{2}^{1}}
+\newcommand{\intba}{\int^b_a}
+\newcommand{\intzeroone} {\int_0^1}
+\newcommand{\diff}[2]{\frac{d{#1}} {d{#2}} }
+\newcommand{\pdif}[2]{\frac{\partial{#1}}{\partial{#2}} }
+\newcommand{\pdifs}[3]{\frac{\partial^{2}{#1}}{\partial{#2}\partial{#3}}}
+\newcommand{\scriptU}{\mathcal{U}}
+\newcommand{\scriptL}{\mathcal{L}}
+\newcommand{\scriptC}{\mathcal{C}}
+\newcommand{\scriptD}{\mathcal{D}}
+\newcommand{\defeq}{:=}
+
+
+\newcommand{\doubleR}{\mathbb{{R}}}
+\newcommand{\doubleN}{\mathbb{N}}
+\newcommand{\doubleZ}{\mathbb{Z}}
+\newcommand{\doubleC}{\mathbb{C}}
+\newcommand{\doubleQ}{\mathbb{Q}}
+\newcommand{\doubleO}{\mathbb{O}}
+\newcommand{\doubleF}{\mathbb{F}}
+
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\lgabs}[1]{\log \abs{#1}}
+\newcommand{\lnabs}[1]{\ln \abs{#1}}
+
+\newcommand{\lhospitals}{{L'H\^{o}pital's }}
+\newcommand{\sumtoinfty}[1]{\sum_{{#1}}^\infty }
+\newcommand{\abr}[1]{\left \langle {#1} \right \rangle}
+\newcommand{\flr}[1]{\left \lfloor {#1} \right \rfloor}
+\newcommand{\cil}[1]{\left \lceil {#1} \right \rceil}
+\renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
+\newcommand{\Log}{\operatorname{Log}}
+\newcommand{\Arg}{\operatorname{Arg}}
+\newcommand{\lap}{\Delta}
+\newcommand{\grad}{\nabla}
+\newcommand{\dl}{\partial}
+\newcommand{\normal}{\hat{n}}
+
+\makeatletter
+\newcommand{\curl}
+{\@ifstar {\nabla \times} {\operatorname{curl}}}
+
+\renewcommand{\div}
+{\@ifstar {\nabla \cdot}{\operatorname{div}}}
+
+\renewcommand{\diff}{\@ifstar {\dif} {\; \mathrm{d}}}
+
+\makeatother
+
+\newcommand{\sint}[4]{
+{
+\int_{#1} {#2} \dif y \wedge \dif z + {#3} \dif z \wedge \dif x + {#4} \dif x \wedge \dif y
+}
+}
+
+\newcommand{\cdif}{\cdot \dif*}
+
+\newcommand{\len}{\ell}
+\newcommand{\gt}{>}
+\newcommand{\comp}{\circ}
+
+\newcommand{\PC}{\mathcal{PC}} 
+
+% basic sets
+
+\newcommand{\complex}{\doubleC}
+\newcommand{\real}{\doubleR}
+\newcommand{\integer}{\doubleZ}
+\newcommand{\rational}{\doubleQ}
+\newcommand{\rationals}{\doubleQ}
+\newcommand{\naturals}{\doubleN}
+\newcommand{\field}{\doubleF}
+
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\powerset}{\mathcal{P}}
+\newcommand{\floor}{\operatorname{floor}}
+\newcommand{\ceil}{\operatorname{ceil}}
+\newcommand{\toquotation}{``$\Rightarrow$''\ }
+\newcommand{\fromquotation}{``$\Leftarrow$''\ }
+\newcommand{\func}[5]{{#1}:{#2} \to {#3}, \quad {#4} \mapsto {#5}}
+\newcommand{\Hess}{\operatorname{Hess}}
+\newcommand{\interior}{\operatorname{int}}
+\newcommand{\content}[1]{\mu\del{{#1}}}
+
+\newcommand{\COne}{\mathcal{C}^1}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\concat}{\oplus}
+
+% infinite series notation
+
+\makeatletter
+\newcommand{\diverges}
+{\@ifstar {\in \mathcal{D}} {= \infty}}
+
+\newcommand{\converges}
+{\@ifstar {\; \in \mathcal{C}} { < \infty}}
+
+\makeatother
+
+% linear algebra stuff
+
+\newcommand{\Col}{\operatorname{Col}}
+\newcommand{\Row}{\operatorname{Row}}
+\newcommand{\col}{\operatorname{col}}
+\newcommand{\row}{\operatorname{row}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\Trace}{\operatorname{Trace}}
+\newcommand{\trace}{\operatorname{trace}}
+\newcommand{\Null}{\operatorname{null}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Id}{\operatorname{Id}}
+
+\newcommand{\dsum}{\oplus}
+\newcommand{\cyc}{\abr}
+\newcommand{\bigdsum}{\bigoplus}
+
+\newcommand{\la}{\leftarrow}
+\ifdefined\nequiv
+\else
+\newcommand{\nequiv}{\not\equiv}
+\fi
+
+\newcommand{\imag}{i}
+\newcommand{\exchange}{\leftrightarrow}
+\newcommand{\setspan}{\operatorname{span}}
+\newcommand{\superset}{\supset}
+
+\newcommand{\Or}{\;\operatorname{or}\;}
+\renewcommand{\And}{\;\operatorname{and}\;}
+\newcommand{\lra}{\leftrightarrow}
+
+\newcommand{\contradiction}{\Lightning}
+\newcommand{\rlightning}{\begin{flushright} \Lightning \end{flushright}}
+
+\newcommand{\ms}{\scriptstyle}
+
+% stastical stuffs
+
+\newcommand{\EV}{\mathbb{E}}
+\newcommand{\V}{\operatorname{Var}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\from}{\mid}
+
+\ifdefined\DONOTDEFINE
+\errmessage{DONOTDEFINE should not be defined}
+\fi
+
+% diff equations
+
+\newcommand{\laplace}{\mathscr{L}}
+
+% problem formatting
+
+\newcounter{currproblem}
+
+\newcommand{\problemsec}{\stepcounter{currproblem} \problem{\thecurrproblem}}
+\newcommand{\problem}[1]{\section*{Problem {#1}} \pdfbookmark[section]{Problem {#1}}{p{#1}}}

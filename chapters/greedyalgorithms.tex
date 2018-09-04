@@ -29,3 +29,106 @@ Consider above that if we see the code \texttt{0..}, this can either mean the ch
 
 Now, if we see some coded message \texttt{*****010.....} and we know that \texttt{*****} is mapped to a particular character, then our message contains that character since no other character can be encoded beginning with \texttt{*****} due to the above definition. Thus, we remove ambiguity and can iterative decode message based on the shortest encoding match. 
 
+\subsection{Constructing a tree}
+
+If we have an encoding, one thing we can do is construct an encoding binary tree where we start at the root, and we move left or right depending if our first character is \texttt{0} or \texttt{1}, and then repeat with the next character. 
+Once we find a node with a character, we stop and determine that is the character we want. 
+
+\begin{example}
+If we have $\Sigma=\cbr{a,b,c,d,e}$, and our $\phi$ maps $\Sigma$ to
+
+\[
+    x \in \Sigma \mapsto \begin{cases}
+        101, & x=a \\
+        100, & x=b \\
+        0, & x=c \\
+        110, & x=d \\
+        111, & x=e \\
+    \end{cases}
+\],
+
+our tree would look as
+
+\begin{center}
+\end{center}
+
+\end{example}
+
+Notice that in a prefix-free encoding, all character nodes are leaf nodes. 
+This is because if there is a leaf node with another leaf node descendant, this means that the two characters share a prefix which violates our principle. 
+We can now formally define the problem. The total access cost is the access time of all characters. This is the sum of each character's number of occurrence - denoted $C_s(c)$ times the cost of each character which is the depth of this character in the tree denoted $D_T(c)$
+
+\[
+    \mathrm{Cost} \defeq \sum_{c \in \Sigma} C_s(c) D_T(c)  
+\]
+
+Moreover, we normalize this value by dividing over the number of characters - thus yielding the \textit{average} access time per character. Hence, 
+
+\[
+    \text{Average cost} = \sum_{c \in \Sigma} \frac{C_s(c)}{C_s} D_T(c)  
+\]
+
+where $C_s$ is the number of characters in string $s$. We then call the fraction of $c$'s occurence in sentence $s$ over the total number of characters the ``frequency'' of c. 
+In other words, 
+
+\[
+    \text{c's Frequency, c.freq} \defeq \frac{C_s(c)}{C_s}.
+\]
+
+\subsection{The greedy algorithm}
+
+Observe that for an optional $T$ - that is, the lowest average cost, any leaf node must have a sibling. This is because if not, let $\ell$ the character that does not have a sibling, we can construct a new tree $T'$ with $\ell$ in the place of its parent node in $T$. 
+In this case, $\ell$'s depth is $1$ less than that of $T$ and 
+
+\[
+\begin{split}
+  \text{Cost}(T)-\text{Cost}(T') &= \sum_{c \in \Sigma} \text{c.freq}\cdot\del{ D_T(c)-D_{T'}(c)} \\
+  &=\ell.\text{freq}(D_T(\ell)-D_{T'}(\ell)) \\
+  &=\ell.\text{freq} \\
+  &>0
+\end{split}
+\]
+
+which is a contradiction. 
+Hence, $T$'s leaves must always have a sibling.
+Intuitively, if we have a leaf without sibling, we are allocating \texttt{x...x1} to a character $\ell$ without having \texttt{x...x0} allocated (or vice versa). 
+By the prefix rule, the encoding \texttt{x...x} has no mapping and could be used for $\ell$ instead, reducing access time. 
+Note that here we assume $\ell$ is used in string $s$, otherwise we could just discard $\ell$ from $\Sigma$. 
+
+Another observation from the above is that for the leaf $c$ with the deepest depth (i.e. deepest down in the tree), there must be a sibling with the same depth ($c'$) (because $c$ has the highest depth). 
+Ideally, we should allocate the two least used characters into this two slot (because if not, there has to be a node with highest depth $(c, d)$ and we could replace $(c, d)$ with the two least frequent characters) and lower the access cost. 
+Hence there exists an optional solution with our greedy choice (the character least used). 
+
+The question now is how do we reduce the problem. We know that $\ell$ and $\ell'$ are differentiated by the last bit with some common prefix. 
+We have to determine this common prefix. 
+Note that this common prefix is itself an encoding, and that the decoding algorithm can reach this prefix when the character is either $\ell$ or $\ell'$. 
+Hence, if we reduce $\ell$ and $\ell'$ to a common character, let's say $\lambda$, for any solution we find with this reduced $\Sigma'$, we can subsitute $(\ell, \ell')$ back for $\lambda$, we get the our solution.
+
+Moreover, if the optimal solution for $\Sigma'$ is not a subset of $\Sigma$'s optimal solution - i.e. $\Sigma'$' solution produces a higher cost than $\Sigma$ solution with $(\ell, \ell')$ replaced, then we can take the solution for $\Sigma$, replace $(\ell, \ell')$ with $\lambda$ and get a lower cost solution - contradiction. With this, we rinse and repeat until we are down to two or one characters, which we stop. 
+
+As a formal algorithm, 
+
+\begin{algorithm}[H]
+\caption{Iterative Huffman Algorithm}
+
+\begin{algorithmic}[1]
+    \Require $s$ a string with characters in $\Sigma$, with all characters used. 
+    \Function{Huffman}{$s, \Sigma$}
+        \State $Q \gets$ \text{new min-Priority queue}
+        \ForAll{$c \in \Sigma$}
+            \State $T \gets$ new tree
+            \State $T.\text{root} \gets c$
+            \State $Q.\Call{Insert}{T,c.\text{freq}}$
+        \EndFor
+
+        \While{$\abs{Q}>1$}
+            \State $T_1 \gets Q.\Call{ExtractMin}{}$ \Comment{Represents $\ell$}
+            \State $T_2 \gets Q.\Call{ExtractMin}{}$ \Comment{Represents $\ell'$}
+            \State $T \gets$ new tree with $T_1$ on its left node, $T_2$ on the right node 
+                \Comment{T's root has no label; this is to represent a non-leaf node.}
+            \State $Q.\Call{Insert}{T,T_1.\text{freq}+T_2.\text{freq}}$ \Comment {Represents $\lambda$, a combined character for $(\ell, \ell')$}
+        \EndWhile
+        \State \Return $Q$'s one tree. \Comment{This tree in $Q$ represents the optimal encoding}
+    \EndFunction
+\end{algorithmic}
+\end{algorithm}

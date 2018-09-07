@@ -68,7 +68,7 @@ Moreover, we normalize this value by dividing over the number of characters - th
     \text{Average cost} = \sum_{c \in \Sigma} \frac{C_s(c)}{C_s} D_T(c)  
 \]
 
-where $C_s$ is the number of characters in string $s$. We then call the fraction of $c$'s occurence in sentence $s$ over the total number of characters the ``frequency'' of c. 
+where $C_s$ is the number of characters in string $s$. We then call the fraction of $c$'s occurrence in sentence $s$ over the total number of characters the ``frequency'' of c. 
 In other words, 
 
 \[
@@ -110,7 +110,7 @@ As a formal algorithm,
 
 \begin{algorithm}[H]
 \caption{Iterative Huffman Algorithm}
-
+\label{greedy-huffman}
 \begin{algorithmic}[1]
     \Require $s$ a string with characters in $\Sigma$, with all characters used. 
     \Function{Huffman}{$s, \Sigma$}
@@ -132,3 +132,98 @@ As a formal algorithm,
     \EndFunction
 \end{algorithmic}
 \end{algorithm}
+
+To prove Algorithm \ref{greedy-huffman}, we prove two lemmas first:
+
+\begin{lemma}
+    Given alphabet set $\Sigma$ with frequency derived from some string, there exists an optimal encoding binary tree such that the two deepest siblings are labeled by the two least frequent characters.
+\end{lemma}
+
+\begin{proof}
+    Let $T$ an optimal encoding binary tree for $\Sigma$.
+    Let $\ell, \ell' \in \Sigma$ the two deepest siblings (they come in pairs from the above).
+    Without loss of generality, $\ell.\text{freq} \le \ell'.\text{freq}$
+    Let $x, y \in \Sigma$ the two characters with the least frequency. 
+    Without loss of generality again, suppose that $x.\text{freq} \le y.\text{freq}$.
+    If $x=\ell$ and $y=\ell'$ or vice versa, we are done (or have the same frequency).
+
+    Otherwise, suppose that $x\neq\ell'$. If $x = \ell$, proceed with the argument below but with $y$ and $\ell$'s reversed.
+    Let $T'$ a new tree the same as $T$ but with $x$ swapped with $\ell$ 
+    Then, 
+
+    \[
+    \begin{split}
+    \text{Cost}(T',\Sigma)-\text{Cost}(T,\Sigma) &= \sum_{c \in \Sigma} c.\text{freq}\cdot(D_{T'}(c) - D_T(c)) \\
+    &= x.\text{freq}(D_{T'}(x)-D_{T}(x)) + \ell.\text{freq}(D_{T'}(\ell) - D_{T}(\ell)) \\
+    &= x.\text{freq}(D_{T'}(x)-D_{T}(x)) + \ell.\text{freq}(D_{T}(x)- D_{T'}(x)) \\
+    &= \underbrace{(x.\text{freq} - \ell.\text{freq})}_{\le 0} \underbrace{(D_{T'}(x)-D_{T}(x))}_{\ge 0} \\
+    &\le 0.
+    \end{split}
+    \]
+
+    Hence $\text{Cost}(T',\Sigma) \le \text{Cost}(T,\Sigma)$.
+    But since $T$ is an optimal tree, $\text{Cost}(T',\Sigma)$ is at least $\text{Cost}(T,\Sigma)$. 
+    Hence $T$ and $T'$ has the same cost and are both optimal.
+    If $y \neq \ell'$ (in other words, $y.\text{freq} \le \ell'.\text{freq}$), repeat the procedure above with $y$ and $\ell'$. 
+\end{proof}
+
+\begin{lemma}
+    Let $T$ an optimal binary tree for $\Sigma$ like above. 
+    Let $x, y$ two sibling leaves in $T$ and let $\Sigma'$ the alphabet set defined by removing $x, y$ from $\Sigma$ and adding a character $\sigma$ to represent ``either $x$ or $y$'' with frequency as $x$ and $y$ combined.
+    In other words, 
+
+    \[
+        \Sigma' \defeq \del{\Sigma \setminus \cbr{x, y}} \cup \cbr{\sigma}, \quad \sigma.\text{freq} 
+        \defeq x.\text{freq} + y.\text{freq}
+    \]
+
+    Let $T'$ the tree $T$ but with nodes $x$ and $y$ removed and their parent labeled $\sigma$. Then 
+    $T'$ is an optimal tree for $\Sigma'$. 
+\end{lemma}
+
+\begin{proof}
+    Let $\Sigma, \Sigma'$ as above. Let $S'$ an optimal tree for $\Sigma'$ and suppose that 
+
+    \[
+        \text{Cost}(S',\Sigma')<\text{Cost}(T',\Sigma'). 
+    \]
+
+    Let $S$ an encoding tree for $\Sigma$ by adding $x, y$ as child of $\sigma$ (and removing the $\sigma$ label in process). 
+    Then $\text{Cost}(S,\Sigma)-\text{Cost}(T,\Sigma)$ is 
+
+    \[
+        \sum_{c \in \Sigma \setminus \cbr{x, y}} c.\text{freq}(D_S(c)-D_T(c)) + x.\text{freq}(D_S(x)-D_T(x))+y.\text{freq}(D_S(y)-D_T(y))
+    \]
+
+    The first term is 
+
+    \[
+        \text{Cost}(S,\Sigma)-\text{Cost}(T,\Sigma) - \sigma.\text{freq}(D_{S'}(\sigma) - D_{T'}(\sigma)) 
+    \]
+
+    Note that 
+
+    \[
+        D_{S'}(\sigma) = D_{S}(x) - 1 = D_{S}(y) - 1
+    \]
+
+    and 
+
+    \[
+        D_{T'}(\sigma) = D_{T}(x) - 1 = D_{T}(y) - 1
+    \]
+
+    and since $\sigma.\text{freq} = x.\text{freq} + y.\text{freq}$, by distributive property, $\text{Cost}(S,\Sigma)-\text{Cost}(T,\Sigma)$ is $\text{Cost}(S',\Sigma')-\text{Cost}(T',\Sigma')$ plus
+
+    \[
+        x.\text{freq}(D_S(x)-D_T(x) - D_{S'}(\sigma) + D_{T'}(\sigma)) +y.\text{freq}(D_S(y)-D_T(y)-D_{S'}(\sigma) + D_{T'}(\sigma))
+    \]
+
+    All the depth terms cancel out and hence is $0$. Hence, 
+
+    \[
+        \text{Cost}(S,\Sigma)< \text{Cost}(T,\Sigma)
+    \]
+
+    which is a contradiction since $T$ is already an optimal tree. 
+\end{proof}

@@ -227,3 +227,57 @@ To prove Algorithm \ref{greedy-huffman}, we prove two lemmas first:
 
     which is a contradiction since $T$ is already an optimal tree. 
 \end{proof}
+
+With this, we can prove that this algorithm is correct.
+
+\begin{theorem}
+    Algorithm \ref{greedy-huffman} is correct - that is, it produces an optimal encoding tree. 
+\end{theorem}
+
+\begin{proof}
+    Consider the loop invariant defined as: \textit{For each iteration of line 7, there exists an optimal encoding tree with each subtree in $Q$ part of this tree}.
+    Initially, the invariant vacously holds since we only have a singleton leaf.
+    For the maintainance, let $T$ be the current optimal tree that contains all the subtrees in $Q$. 
+
+    Iteratively, we can see each element in $Q$ as a leaf node. 
+    Then since we are taking the two least frequent characters in $Q$, there exists an optimal tree such that these two are siblings - call this tree $S$.
+    Then, $S$ with all leaves replaced with the subtree is also an optimal tree for $\Sigma$ as if it is not (i.e. $R$ a tree for $\Sigma$ with a lower cost, then we see that we can construct a lower cost subtree $R'$ with each leaf element in $Q$).
+
+    Hence there exists an optimal encoding tree with these two subtrees combined. Trivially, this loop terminates since $\abs{Q}$ decreases by one for each iteration. And when it terminates, there is only one tree left which means all elements are connected and this is the encoding tree.
+    Note that the last sentence uses the invariant that all subtrees are connected which can be easily proved. 
+\end{proof}
+
+We notice that the structure of Huffman problem is quite similar to Kruskal's algorithm where there exists an optimal solution for every greedy choice we picked which leads us to the final answer.
+We can generalize this to an abstract model - Matroids.
+
+\section{Kruskal's MST Algorithm}
+
+See CMPUT 204 Slides.
+
+\section{Matroids}
+
+With the two problems in mind above, can we create a model with sets of solutions that can be iteratively constructed by picking a greedy option? 
+The answer is yes. 
+
+\begin{define}
+    A ``matroid'' $\mathcal{M}$ is two sets - $(U, \mathcal{I})$ such that 
+
+    \begin{enumerate}
+        \item $U$, the ``universe'' set, is finite. That is, $\abs{U} \in \naturals_0$. 
+        \item $\mathcal{I} \subset \mathcal{P}(U)$ where $\mathcal{P}(U)$ is the power set of $U$. 
+        In other words, $\mathcal{I}$ is a collection of subsets of $U$ such that 
+        \begin{enumerate}
+            \item \textit{Hereditary Property.} For each $S \in \mathcal{I}$, if $R \subset S$, then $R \in \mathcal{I}$.
+            \item \textit{Augmentation Property.} For all $A, B \in \mathcal{I}$ such that $\abs{A} > \abs{B}$, there exists some $x \in A \setminus B$ such that 
+
+            \[
+                B \cup \cbr{x} \in \mathcal{I}. 
+            \]
+        \end{enumerate}
+    \end{enumerate}
+\end{define}
+
+\begin{remark}
+    This means that for any matroid $\mathcal{M}=(U,\mathcal{I})$, $\emptyset \in \mathcal{I}$. 
+\end{remark}
+

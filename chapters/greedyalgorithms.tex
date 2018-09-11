@@ -332,13 +332,15 @@ We can formulate one lemma:
     \fromquotation If $A$ is maximum, trivially we cannot add any more element to $A$ such that it remains in $\mathcal{I}$. Otherwise $A$ is not maximum. 
 \end{proof}
 
+\subsection{General Matroid Algorithm}
+
 Moreover, if each element in $U$ have a weight denoted by function $w: U \to \real_{\ge 0}$, we can use the greedy algorithm to find a maximal set $I$ with the highest weight.
 
 \begin{algorithm}[H]
 \caption{General greedy algorithm for a matroid}
 \label{greedy-matroid}
 \begin{algorithmic}[1]
-    \Require $\mathcal{M}$ a matroid and $w: U \to \real_{\ge 0}$ weight function. 
+    \Require $\mathcal{M}$ a matroid and $w: U \to \real$ weight function. 
     \Ensure $S$ is an maximal set with weight maximized. 
     \Function{GreedyMatroid}{$\mathcal{M}=(U,\mathcal{I}), w$}
         \State $S \gets \emptyset$
@@ -355,3 +357,69 @@ Moreover, if each element in $U$ have a weight denoted by function $w: U \to \re
 
 If $\abs{U}=n$ and the runtime to check if $A \in \mathcal{I}$ is $O(f(n))$ for some $f: \naturals \to \real_{\ge 0}$, then the overall runtime of this algorithm is $O(n\log n + nf(n))$. 
 Of course, if $U$ is already sorted, the runtime is reduced to $O(nf(n))$, and if $f(n)$ is bounded, the runtime is simply $O(n)$. 
+To prove this theorem, consider a lemma:
+
+\begin{lemma}
+    \label{greedy-matroid-viable}
+    For each iteration in the loop, if for $x \in U \setminus S$ such that $S \cup \cbr{x} \in \mathcal{I}$ then we call $x$ ``viable''.
+    If $x$ is viable in a given iteration, then $x$ was also viable in all previous iterations.
+\end{lemma}
+
+\begin{proof}
+    Let $x$ viable in a given iteration. For a particular iteration before this one, let $S'$ the set $S$ at that time. Then, 
+
+    \[
+        S' \subset S \implies S' \cup \cbr{x} \subset S \cup \cbr{x} \in \mathcal{I}. 
+    \]
+
+    By the Hereditary property, $S' \cup \cbr{x} \in \mathcal{I}$ which means $x$ was also viable back then. 
+\end{proof}
+
+We also have a simple contraposition of the lemma \ref{greedy-matroid-viable} above. 
+
+\begin{corollary}
+    If for a given iteration $x \in U$ is not viable at a given iteration, it is also not viable in the following iterations. 
+\end{corollary}
+
+With this, we can prove the greedy matroid algorithm. 
+
+\begin{theorem}
+    The algorithm \ref{greedy-matroid} is correct. 
+\end{theorem}
+
+\begin{proof}
+Consider the loop invariant for line 4: 
+\textit{For each iteration, there exists an maximal set $A \in \mathcal{I}$ such that $S \subset A$ and $A$ has the highest combined weight of all the maximal sets. }
+
+\begin{itemize}
+    \item Initially, $S=\emptyset$ which means for any optimal set $A$, $S=\emptyset\subset A$. 
+    \item As for the maintenance, if $S \cup \cbr{x} \notin \mathcal{I}$, we are done since $S$ is still subset $A$ at the end of this iteration. 
+    Another easy case is if $x \in A$ in which we are also done. 
+
+    The hard case is if $x \notin A$. 
+    Consider $S \cup \cbr{x}$. If $\abs{S}+1<\abs{A}$, by the augmentation property we can iteratively construct $B$ from elements in $A$ such that 
+
+    \[
+        S \cup \cbr{x} \subset B, \quad \abs{B}=\abs{A}. 
+    \]
+
+    This means there is exactly one element in $A$ that is missing from $B$. call this element $y$ and that 
+
+    \[
+        w(B)-w(A)=w(x)-w(y). 
+    \]
+
+    If $w(x)\ge w(y)$, we are done and show that $B$ is also an optimal maximal set. 
+    Otherwise, if $w(y)>w(x)$ and since $y \in A$ and $S \subset A$, $S \cup \cbr{y} \in \mathcal{I}$ which means $y$ is viable. 
+    By our order of sorting, $y$ appeared before $x$ and since $y$ was also viable back then, it should have been included but it is not. 
+    Hence $w(x) \ge w(y)$ and $w(B)\ge w(A)$. But since $A$ is the optimal set, $w(B)=w(A)$.
+    Thus the loop invariant holds.
+
+    \item For termination, trivially we are iterating over a finite element, hence the loop ends. 
+
+    \item Once it ends, if $\abs{S}>\abs{A}$, by the augmentation property there is some $z$ such that $S \cup \cbr{z} \in \mathcal{I}$ which means $z$ is viable. 
+    But we already traversed through $z$ and it should be included in $S$. Hence $\abs{S}=\abs{A}$. Hence $A=S$ and $S$ is our maximum optimal set. 
+\end{itemize}
+\end{proof}
+
+\subsection{Kruskal MST as Matroid}

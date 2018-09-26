@@ -1,0 +1,62 @@
+Consider this problem: You are in charge of planning the city's sewage network. 
+You have the city core that produces the sewage, several pump stations located on the outskirts, and the water treatment plant in another town. 
+Your task is to maximize the amount of sewage from the city to the water treatment plant.
+How do you it?
+
+\section{Defining The problem}
+
+\begin{define}
+    A ``flow network'' is a tuple of a graph $G=(V,E)$, the source and sink $s,t\in V$ and the capacity function $c: E\to\real_{\ge 0}$. 
+    The sources provide flow into each edge which the sink recieves.
+\end{define}
+
+In other words, from the example above the vertices would be the city as the source, pumping stations and the treatment plant as sink, the edges as water pipes, and the capacity as the maximal amount water can flow in a given pipe. 
+With this, we can define a criteria for all solutions to this problem:
+
+\begin{define}
+    A ``flow'' is a particular solution to a flow network $(G=(V,E),s,t,c)$ which is represented as a function $f: E \to \real_{\ge 0}$ such that for all $(u,v)\in E$, 
+
+    \begin{equation}
+        0 \le f((u,v)) \le c((u,v))
+    \end{equation}
+
+    i.e. the flow from one node to another cannot exceed the capacity of that edge (e.g. pipe)
+    and for all $v \neq s, t$, 
+
+    \begin{equation}
+        \sum_{(u,v) \in E} f((u,v)) = \sum_{(v,u) \in E} f((v,u))
+    \end{equation}
+
+    i.e. the flow entering node $v$ must be the same as flow exiting $v$.
+    $v$ cannot generate or hoard any flow for its own use. 
+\end{define}
+
+Note that we can impose additional restrictions to make the problem a bit more simple With
+
+\begin{enumerate}
+    \item $G$ is a directed graph;
+    \item There are no self loops (i.e. no $(u,u)\in E$ for any $u\in V$)
+    \item There are no bidirectional edge pairs (i.e. if $(u,v)\in E$, then $(v,u) \notin E$).
+\end{enumerate}
+
+Moreover, with $c:E\to\real_0$, for a simpler process we can write $c$ as a function from $V^2$ (i.e. from a pair of edges to a nonnegative $\real$) as
+
+\begin{equation}
+    c: V^2 \to \real_{\ge 0}, \quad (u,v) \mapsto \begin{cases}
+        c((u,v)), & (u,v)\in E \\
+        0,& \text{otherwise}
+    \end{cases}
+\end{equation}
+
+Note that if $G$ doesn't satisfy these assumptions above, we can ``massage'' $G$ to fit our assumption by
+
+\begin{enumerate}
+    \item If $G$ is undirected, let $G$ instead have two directed edges with the same capacity; 
+    \item If $G$ has self-loops, just remove them as self-loop contributes nothing to the overall flow;
+    \item If $G$ has bidirectional edge pairs, let $(u,v)\in E$ as it is, and for $(v,u)$, we route it through a proxy node instead.
+    This means creating a node $z \in V$ and letting $(v,z)$ and $(z,u)$ with the capacity as $(v,u)$.
+    The end result will be equivalent. 
+\end{enumerate}
+
+\subsection{Defining the Objective}
+

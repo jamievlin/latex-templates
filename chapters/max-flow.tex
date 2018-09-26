@@ -14,6 +14,7 @@ In other words, from the example above the vertices would be the city as the sou
 With this, we can define a criteria for all solutions to this problem:
 
 \begin{define}
+    \label{ch3:flow-def}
     A ``flow'' is a particular solution to a flow network $(G=(V,E),s,t,c)$ which is represented as a function $f: E \to \real_{\ge 0}$ such that for all $(u,v)\in E$, 
 
     \begin{equation}
@@ -35,7 +36,7 @@ Note that we can impose additional restrictions to make the problem a bit more s
 
 \begin{enumerate}
     \item $G$ is a directed graph;
-    \item There are no self loops (i.e. no $(u,u)\in E$ for any $u\in V$)
+    \item There are no self loops (i.e. no $(u,u)\in E$ for any $u\in V$); 
     \item There are no bidirectional edge pairs (i.e. if $(u,v)\in E$, then $(v,u) \notin E$).
 \end{enumerate}
 
@@ -58,5 +59,130 @@ Note that if $G$ doesn't satisfy these assumptions above, we can ``massage'' $G$
     The end result will be equivalent. 
 \end{enumerate}
 
-\subsection{Defining the Objective}
+\section{Defining the Objective}
 
+Now, as with the max-flow problem, our goal is to maximize the flow into $t$, or the sink.
+In the sewage example, this means processing wastewater in the most efficient manner possible (i.e. most \si{\liter\per\hour} of sewage).
+
+Na\"ively, we can define the goal as 
+
+\begin{equation}
+    \label{ch3:naive-obj}
+    \max_{f} \sum_{u\in V} f(u,t)
+\end{equation}
+
+where $f$ is a flow subject to the defintion \ref{ch3:flow-def}. 
+However, problem arises that if $t$ has an outgoing edge to another node, then there is a path back to $t$, we can artifically inflate the flow without gaining a \textit{net} flow. 
+Consider the case of
+
+\begin{figure}[H]
+    \centering
+    \asyinclude{asy/ch3-maxflow-naive-t.asy}
+    \caption{Where the na\"ive objective fails }
+\end{figure}
+
+From the above, we could set $f(t,a)=1000=f(a,b)=f(b,t)$. 
+We have artifically inflated the flow amount by $1000$ for doing absolutely nothing. 
+Moreover, this is a well-defined flow. What can we do? The na\"ive method is almost there - it's just missing one little detail - to consider the \textit{net} flow instead of the \textit{gross} flow. 
+We can modify objective \ref{ch3:naive-obj} into
+
+\begin{equation}
+    \label{ch3:naive-obj-fixed}
+    \max_f \del{ \sum_{u\in V} f(u,t) - \sum_{u \in V} f(t,u) }
+\end{equation}
+
+With this, we only consider the total flow amount in, minus the flow from $t$. 
+Still, to make the definition a little more simple, we can alternatively formulate the outflow by considering the net outflow of $s$, or formally:
+
+\begin{define}
+    Let $f$ a valid flow. 
+    Then the ``flow value'' of $f$, denoted $\abs{f}$ is defined as 
+
+    \begin{equation}
+        \abs{f} \defeq \sum_{v \in V} f(s,v) - \sum_{v \in V} f(v,s)
+    \end{equation}
+\end{define}
+
+With flow conservation property, we can construct a telescoping sum that cancels out to \ref{ch3:naive-obj-fixed}. 
+
+\begin{lemma}
+    Let $f$ a valid flow. Then 
+
+    \[
+        \abs{f}=\sum_{u\in V} f(u,t) - \sum_{u \in V} f(t,u). 
+    \]
+\end{lemma}
+
+\begin{proof}
+    It is clear that 
+
+    \[
+        \abs{f} = \sum_{v \in V} f(s,v) - \sum_{v \in V} f(v,s).
+    \]
+
+    By flow conservation, for each $u \in V \setminus \cbr{s, t}$, 
+
+    \[
+        \sum_{v \in U} f(u,v) = \sum_{v \in U} f(v,u)
+    \]
+
+    We can sum up for all $u$. Hence, 
+
+    \[
+        \sum_{u \in V\setminus\cbr{s,t}} \sum_{v \in U} f(u,v) =  \sum_{u \in V\setminus\cbr{s,t}} \sum_{v \in U} f(v,u)
+    \]
+
+    The left hand side is 
+
+    \[
+        \sum_{u \in V\setminus\cbr{s,t}} \sum_{v \in V\setminus \cbr{s,t}} f(u,v) + \sum_{u \in V\setminus\cbr{s,t}} \del{ f(u,s) + f(u,t)}
+    \]
+
+    The right hand side is 
+
+    \[
+        \sum_{u \in V\setminus\cbr{s,t}} \sum_{v \in V\setminus \cbr{s,t}} f(u,v) + \sum_{u \in V\setminus\cbr{s,t}} \del{ f(s,u) + f(t,u)}
+    \]
+
+    Subtract the remaining sum from other sides; we then have 
+
+    \[
+        \sum_{u \in V\setminus\cbr{s,t}} \del{ f(u,s) + f(u,t)} = \sum_{u \in V\setminus\cbr{s,t}} \del{ f(s,u) + f(t,u)}
+    \]
+
+    Which means 
+
+    \[
+        \sum_{u \in V\setminus\cbr{s,t}} f(s,u) - \sum_{u \in V\setminus\cbr{s,t}} f(u,s) = \sum_{u \in V\setminus\cbr{s,t}} f(u,t) - \sum_{u \in V\setminus\cbr{s,t}} f(t,u)
+    \]
+
+    Then, we can first add $f(s,s)-f(s,s)=0$ to the left hand side, $f(t,t)-f(t,t)=0$ on the right hand side, and $f(s,t)-f(t,s)$ to both sides, we have 
+
+    \[
+	\abs{f}=\sum_{u \in V} f(s,u) - \sum_{u \in V} f(u,s) = \sum_{u \in V} f(u,t) - \sum_{u \in V} f(t,u)
+    \]
+
+    which is the same as objective \ref{ch3:naive-obj-fixed}. 
+\end{proof}
+
+\section{The Ford-Fulkerson Method}
+
+Note that instead of the term ``Algorithm'', we use ``Method'' since this can be implemented in various of ways. 
+Here is a rough sketch of method: 
+
+\begin{algorithm}[H]
+    \caption{The Ford-Fulkerson Method}
+    \label{ch3:ford-fulkerson}
+
+    \begin{algorithmic}[1]
+        \Procedure{Ford-Fulkerson}{$V,E , s, t, c$}
+        \State $f\gets$ an zero flow function \Comment i.e $(u,v)\mapsto 0$ for all $u,v\in V^2$
+        \While{There exists a path $s\to\ldots\to t$, call this path $P$ such that for all $(u,v)\in P$, $f(u,v)<c(u,v)$. }
+        \State $\Delta\gets \min_{(u,v)\in P} \del{c(u,v)-f(u,v)}$ 
+        \State Augment $f$ on $(u,v)\in P$ with $\Delta$ \Comment i.e. $f(u,v)\gets f_{\text{old}}(u,v)+\Delta$ for $(u,v)\in P$. 
+        \EndWhile
+
+        \State \Return $f$ 
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}

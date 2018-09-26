@@ -1,0 +1,35 @@
+{
+    "$schema": "https://cdn.rawgit.com/supakorn-ras/py2asyutils/master/graphschema.json", 
+
+    "options": {
+        "circrad": 0.1,
+        "directed": true,
+        "header": "size(2cm);",
+        "arrowstyle": null
+    },
+
+    "graph": [
+        {
+            "id": 0, 
+            "text":"t",
+            "outnodes": [1],
+            "pos": [0,0]
+        },  
+        {
+            "id": 1,
+            "text": "a",
+            "outnodes": [2],
+            "pos": [1, 1]
+        }, {
+            "id": 2,
+            "text": "b",
+            "outnodes": [0],
+            "pos": [1, -1]
+        }, {
+            "id": 3,
+            "text": "...",
+            "outnodes": [0],
+            "pos": [-2, 0]
+        }
+    ]
+}

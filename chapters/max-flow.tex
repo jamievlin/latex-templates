@@ -186,3 +186,17 @@ Here is a rough sketch of method:
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
+
+While this method may seem like a good one, there is a problem:
+Consider the following graph:
+
+\begin{center}
+\asyinclude{asy/ch3-maxflow-fulkerson-naive.asy}
+\end{center}
+
+If we pick path $s\to b \to c \to t$, our $\Delta$ is $4$ and 
+we then have this graph:
+
+\begin{center}
+	\asyinclude{asy/ch3-maxflow-fulkerson-naive-stuck.asy}
+\end{center}

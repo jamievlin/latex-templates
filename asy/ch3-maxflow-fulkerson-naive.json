@@ -1,0 +1,74 @@
+{
+    "$schema": "https://cdn.rawgit.com/supakorn-ras/py2asyutils/master/graphschema.json",
+
+    "options": {
+        "circrad": 0.15,
+        "directed": true,
+        "header": "size(6cm);",
+        "arrowstyle": null
+    },
+
+    "graph": [{
+            "id": 0,
+            "text": "s",
+            "outnodes": [{
+                "id": 1,
+                "label": "$4$",
+                "align": "N"
+            }, {
+                "id": 4,
+                "label": "$7$",
+                "align": "NW"
+            }],
+            "pos": [0, 0]
+        },
+        {
+            "id": 1,
+            "text": "b",
+            "outnodes": [
+                {
+                    "id": 2,
+                    "label": "$7$",
+                    "align": "N"
+                }, {
+                    "id": 5,
+                    "label": "$2$",
+                    "align": "SW"
+                }
+            ],
+            "pos": [1, 0]
+        }, {
+            "id": 2,
+            "text": "c",
+            "outnodes": [{
+                "id": 3,
+                "label": "$4$",
+                "align": "N"
+            }],
+            "pos": [2, 0]
+        }, {
+            "id": 3,
+            "text": "t",
+            "outnodes": [],
+            "pos": [3, 0]
+        }, {
+            "id": 4,
+            "text": "a",
+            "outnodes": [{
+                "id": 2,
+                "label": "$5$",
+                "align": "NE"
+            }],
+            "pos": [1, 1]
+        }, {
+            "id": 5,
+            "text": "d",
+            "outnodes": [{
+                "id": 3,
+                "label": "$3$",
+                "align": "SE"
+            }],
+            "pos": [2, -1]
+        }
+    ]
+}

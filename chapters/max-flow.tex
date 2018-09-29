@@ -171,7 +171,7 @@ Note that instead of the term ``Algorithm'', we use ``Method'' since this can be
 Here is a rough sketch of method: 
 
 \begin{algorithm}[H]
-    \caption{The Ford-Fulkerson Method}
+    \caption{The (Naive) Ford-Fulkerson Method. We will later on see why this algorithm is incomplete}
     \label{ch3:ford-fulkerson}
 
     \begin{algorithmic}[1]
@@ -200,3 +200,142 @@ we then have this graph:
 \begin{center}
 	\asyinclude{asy/ch3-maxflow-fulkerson-naive-stuck.asy}
 \end{center}
+
+Clearly, the only path out of $s$ is to $a$ then stuck at $c$.
+There are no more way to augment the flow. 
+And yet, the path $s\to a\to c \to t$ has a delta of $4$, and path $s\to b \to b \to d \to t$ has delta of $2$ - thus an overall net flow of $6$.
+
+How can we fix this problem? In the diagram above, \textit{If we can flow some water into $b$ from $c$}, this would open another path for us. 
+We need $2$ units of water to flow into $b$ from $c$. 
+But we already have $4$ units flowing in the other direction; can we do something?
+
+It turns out yes; since $c$ is recieving $4$ units of water from $b$, the two units of water from $a$ can compensate for the loss of $b$ to $c$ flow.
+And for $b$, with $2$ units of water saved, it can divert that flow to $d$ instead. 
+Here, we are formally reversing a flow, or informally, divert the flow to other notes and and from some other nodes. 
+
+We will use a ``residual'' network to see the overall flow remaining \textit{plus} the reversible amount of flow: 
+
+\begin{define}
+    \label{ch3:residual-network-def}
+    Let $(G=(V,E), s,t,c)$ a flow network and $f:V^2\to \real_{\ge 0}$ a valid flow function. 
+    Then the ``residual flow network'' is $(V,E',s,t,c^*)$ flow network derived from the original flow with the same vertices, source and sink and edges 
+
+    \[
+        E'\defeq E \cup \cbr{(v,u) \in V^2: f(u,v)>0}
+    \]
+
+    i.e. for any edge that has a flow, we add in the reverse edge.
+    Then the new capacity is defined by 
+
+    \[
+        c^*: V^2\to [0,\infty), \quad (u,v) \mapsto \begin{cases}
+            c(u,v)-f(u,v), & (u,v)\in E \\
+            f(v,u), & (v,u)\in E \\
+            0, & \text{otherwise.}
+        \end{cases}
+    \]
+\end{define}
+
+Moreover, what does it mean to augment our flow when the path is obtained from residual flow?
+\begin{enumerate}
+    \item If an edge $(u,v) \in P$ is an original edge, simply add that flow into the new flow.
+    \item If an edge $(u,v) \in P$ is a residual edge, this means in the original $(v,u)$ edge, we subtract that flow. 
+\end{enumerate}
+
+Or formally, if $f_{n+1}:V^2\to [0,\infty)$ is our augmented flow with $\Delta>0$ as the minimal capacity edge in our path (i.e. the bottleneck), then 
+
+\begin{equation}
+    \label{ch3:flow-augment-func}
+    f^*:V^2\to [0,\infty), \quad (u,v) \mapsto \begin{cases}
+        f(u,v) + \Delta, & (u,v) \in P \cap E\\
+        f(u,v)-\Delta, & (v,u) \in P, (u,v)\in E \\
+        f(u,v), & \text{otherwise.}
+    \end{cases}
+\end{equation}
+
+where $f$ is our current flow function. 
+Hence, we can revise the Ford-Fulkerson method to
+
+\begin{algorithm}[H]
+    \caption{The revised Ford-Fulkerson Method}
+    \label{ch3:ford-fulkerson}
+
+    \begin{algorithmic}[1]
+        \Procedure{Ford-Fulkerson}{$F_0=(V,E , s, t, c)$}
+        \State $f\gets$ an zero flow function \Comment i.e $(u,v)\mapsto 0$ for all $u,v\in V^2$
+        \State $F\gets F_0$
+        \While{There exists a path $s\to\ldots\to t$ in $F$, call this path $P$ such that for all $(u,v)\in P$, we have $c_F(u,v)>0$. }
+        \State $\Delta\gets \min_{(u,v)\in P} \del{c_{F}(u,v)}$ \Comment{$c_F$ is the capacity of $F$ defined by \ref{ch3:residual-network-def}}
+        \State $f^* \gets $ Augment $f$ with $P$ based on rule \ref{ch3:flow-augment-func}
+        \State  $f\gets f^*$
+        \State $F \gets $ Construct residual network from $F_0$ with $f$ by definition \ref{ch3:residual-network-def} 
+        \EndWhile
+
+        \State \Return $f$ 
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+We shall prove some more properties about the new augmented flow and the this residual flow. 
+
+\begin{theorem}
+    For each augmentation, $f^*: V^2\to[0,\infty)$ is a well-defined flow function. 
+\end{theorem}
+
+\begin{proof}
+    We need to show that $f^*$ respects the flow capacity and produces a net gain of $0$ for all nodes except $s$ and $t$. 
+
+    Consider some path of nodes $P$ we picked and each $(u,v)\in V^2$. 
+    One of three things can happen:
+
+    \begin{enumerate}
+        \item $(u,v)\in P$ and $(u,v) \in E$. In this case, 
+
+        \[
+            f^*(u,v)=f(u,v)+\Delta \le f(u,v)+c_F(u,v)
+        \]
+
+        By our definition of $c_F$, $c_F(u,v)=c(u,v)-f(u,v)$ and thus 
+
+        \[
+            0 < f^*(u,v) \le c(u,v)
+        \]
+
+        Note that zero comes from the fact that $f(u,v)$ is nonnegative and $\Delta>0$. 
+
+        \item If $(u,v)\in E$ and $(v,u) \in P$, then 
+        
+        \[
+            f^*(u,v)=f(u,v)-\Delta \le f(u,v) \le c(u,v)
+        \]
+
+        trivially. On the other hand, 
+
+        \[
+            \Delta \le f(u,v)
+        \]
+
+        by our definition, hence 
+
+        \[
+            0\le f(u,v).
+        \]
+
+        \item If $(u,v)\notin P$, $f^*(u,v)=f(u,v)$ and we are done. 
+    \end{enumerate}
+
+    Secondly, to show that $f^*$ satisfies flow conservation, consider a node $u\neq s,t$.
+    If $P$ doesn't go through $u$, we are done.
+    Otherwise if it does, let $v\to u$ and $u\to w$ incoming and exiting nodes.
+    Then, there are $4$ cases here:
+
+    \begin{enumerate}
+        \item If $(v,u), (u,w) \in E$, then $f^*(v,u)= f(v,u)+\Delta$ and $f^*(u,v)=f(u,v)+\Delta$. Summing up the rest of nodes yield the same result for both sides.
+        \item If $(v,u), (w,u) \in E$, then $f^*(v,u)=f(v,u)+\Delta$ and $f(w,u)=f(w,u)-\Delta$. These cancel out, and when we sum up the rest of nodes, we get the same result for both sides.
+        \item If $(u,v),(u,w) \in E$, this case is symmetric to the above but on the right hand side.
+        \item If $(u,v), (w,u) \in E$, this is again symmetric to the first case except we are considering $-\Delta$. 
+    \end{enumerate}
+
+    Therefore both properties are satisfied. 
+\end{proof}
+

@@ -1,5 +1,5 @@
 {
-    "$schema": "https://cdn.rawgit.com/supakorn-ras/py2asyutils/master/graphschema.json",
+    "$schema": "https://cdn.rawgit.com/supakorn-ras/py2asyutils/1e791dce/graphschema.json",
 
     "options": {
         "circrad": 0.15,
@@ -11,11 +11,7 @@
     "graph": [{
             "id": 0,
             "text": "s",
-            "outnodes": [{
-                "id": 1,
-                "label": "$4$",
-                "align": "N"
-            }, {
+            "outnodes": [ {
                 "id": 4,
                 "label": "$7$",
                 "align": "NW"
@@ -28,7 +24,7 @@
             "outnodes": [
                 {
                     "id": 2,
-                    "label": "$7$",
+                    "label": "$3$",
                     "align": "N"
                 }, {
                     "id": 5,
@@ -40,11 +36,7 @@
         }, {
             "id": 2,
             "text": "c",
-            "outnodes": [{
-                "id": 3,
-                "label": "$4$",
-                "align": "N"
-            }],
+            "outnodes": [],
             "pos": [2, 0]
         }, {
             "id": 3,

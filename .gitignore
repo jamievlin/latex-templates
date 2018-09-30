@@ -17,9 +17,9 @@
 *.xdv
 *-converted-to.*
 # these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-# *.pdf
+*.ps
+*.eps
+*.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
 .pdf
@@ -259,34 +259,3 @@ TSWLatexianTemp*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-## from github.com/vectorgraphics/asymptote
-
-### TeX-related
-## Core latex/pdflatex auxiliary files:
-*_.tex
-*+[0-9]*.tex
-*.aux
-*.lof
-*.log
-*.lot
-*.fls
-*.out
-*.toc
-*.tuc
-
-## Intermediate documents:
-*.dvi
-*-converted-to.*
-# these rules might exclude image files for figures etc.
-*.ps
-*.eps
-*.pdf
-*.pre
-*.m9
-*-[0-9].*
-/doc/**/asymptote.*
-!/doc/asymptote.texi
-/doc/options
-.asy_*
-

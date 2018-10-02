@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{import}
+
+\newcommand{\basedir}{##BASE_REPO_DIR}
+\import{\basedir/base/}{mathPreamble}
+
+\newcommand{\assignmentnum}{##ASSNUM}
+\newcommand{\studentname}{##STUDENTNAME}
+\newcommand{\studentid}{##STUDNETID}
+\newcommand{\coursename}{##COURSE_NAME}
+\newcommand{\coursesec}{##COURSE_SEC}
+
+\begin{document}
+\import{\basedir/base/}{hwTitle}
+\let\basedir\undefined
+
+% Your Document here
+\end{document}

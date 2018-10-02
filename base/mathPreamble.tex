@@ -12,6 +12,15 @@
 \usepackage{amsthm}
 \usepackage{asymptote}
 \usepackage{csvsimple}
+
+\usepackage{systeme}
+\usepackage{cancel}
+\usepackage{gauss}
+\usepackage[numbered]{bookmark}
+\usepackage{mathrsfs}
+\usepackage{alltt}
+\usepackage[hyphens]{url}
+
 \ifxetex
 \usepackage{anyfontsize}
 \usepackage{fontspec}
@@ -19,26 +28,6 @@
 \usepackage[utf8]{inputenc}
 \fi
 
-\ifx\SECTIONTHM\undefined
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{corollary}{Corollary}
-\theoremstyle{definition}
-\newtheorem{define}{Definition}
-\else
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{corollary}{Corollary}[section]
-\theoremstyle{definition}
-
-\newtheorem{define}{Definition}[section]
-\fi
-
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{example}{Example}
 \ifdefined\LIBERTINE
 \usepackage[T1]{fontenc}
 \usepackage{libertine}
@@ -46,22 +35,37 @@
 \usepackage[libertine]{newtxmath}
 \fi
 
-\usepackage{systeme}
-\usepackage{cancel}
-\usepackage{gauss}
-\usepackage[numbered]{bookmark}
-\usepackage{mathrsfs}
-\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
-\usepackage{alltt}
-
-    \ifdefined\ENABLEALGORITHMS
+\ifdefined\ENABLEALGORITHMS
     \usepackage{algorithm}
     \usepackage[noend]{algpseudocode}
    %  \usepackage[]{algorithm2e}
     \usepackage{float}
-    \fi
+\fi
 
 \fi
+
+% theorems styling
+\ifx\SECTIONTHM\undefined
+	\theoremstyle{plain}
+	\newtheorem{theorem}{Theorem}
+	\newtheorem{lemma}{Lemma}
+	\newtheorem{corollary}{Corollary}
+	\theoremstyle{definition}
+	\newtheorem{define}{Definition}
+\else
+	\theoremstyle{plain}
+	\newtheorem{theorem}{Theorem}[section]
+	\newtheorem{lemma}{Lemma}[section]
+	\newtheorem{corollary}{Corollary}[section]
+	\theoremstyle{definition}
+	
+	\newtheorem{define}{Definition}[section]
+
+\fi
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
 
 % problem formatting
 

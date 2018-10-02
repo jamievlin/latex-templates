@@ -2,6 +2,9 @@
 \newcommand{\BASEMATHPREAMBLE}{}
 
 \ifx\NOPACKAGES\undefined
+\usepackage{float}
+\PassOptionsToPackage{hyphens}{url}\usepackage[breaklinks=true]{hyperref}
+\usepackage{breakurl}
 \usepackage{fancyhdr}
 \usepackage{commath}
 \usepackage{mathtools}
@@ -19,7 +22,8 @@
 \usepackage[numbered]{bookmark}
 \usepackage{mathrsfs}
 \usepackage{alltt}
-\usepackage[hyphens]{url}
+
+
 
 \ifxetex
 \usepackage{anyfontsize}
@@ -39,7 +43,6 @@
     \usepackage{algorithm}
     \usepackage[noend]{algpseudocode}
    %  \usepackage[]{algorithm2e}
-    \usepackage{float}
 \fi
 
 \fi

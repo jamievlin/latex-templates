@@ -1,8 +1,11 @@
 \documentclass{report}
 \newcommand{\ENABLEALGORITHMS}{}
 \newcommand{\NOFANCY}{}
-\input{./base/mathPreamble.tex}
-\input{./base/theoremStyle.tex}
+\newcommand{\SECTIONTHM}{}
+
+\usepackage{import}
+\newcommand{\basedir}{./base-template}
+\import{\basedir/base/}{mathPreamble}
 
 \begin{document}
 \begin{titlepage}
@@ -23,11 +26,11 @@
 \tableofcontents
 
     \chapter{Greedy Algorithms}
-    \input{./chapters/greedyalgorithms.tex}
+    \import{chapters/}{greedyalgorithms}
 
     \chapter{Dynamic Programming}
-    \input{./chapters/dyn-prog.tex}
+    \import{chapters/}{dyn-prog}
 
     \chapter{Max Flow Problem}
-    \input{./chapters/max-flow.tex}
+    \import{chapters/}{max-flow}
 \end{document}

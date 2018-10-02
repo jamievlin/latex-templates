@@ -19,7 +19,7 @@
 \usepackage[utf8]{inputenc}
 \fi
 
-\ifx\CHAPTERTHM\undefined
+\ifx\SECTIONTHM\undefined
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -28,16 +28,14 @@
 \newtheorem{define}{Definition}
 \else
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
 \theoremstyle{definition}
 
-\newtheorem{define}{Definition}[chapter]
+\newtheorem{define}{Definition}[section]
 \fi
+
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{example}{Example}

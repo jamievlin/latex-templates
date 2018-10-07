@@ -39,11 +39,11 @@
 \usepackage[libertine]{newtxmath}
 \fi
 
-\ifdefined\ENABLEALGORITHMS
-    \usepackage{algorithm}
-    \usepackage[noend]{algpseudocode}
-   %  \usepackage[]{algorithm2e}
-\fi
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+%  \usepackage[]{algorithm2e}
+
 
 \fi
 
@@ -258,6 +258,8 @@
 \newcommand{\Jac}{\operatorname{Jac}}
 \newcommand{\Rad}{\operatorname{Rad}}
 \newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Frac}{\operatorname{Frac}}
+\newcommand{\proj}{\doubleP}
 
 \ifdefined\DONOTDEFINE
 \errmessage{DONOTDEFINE should not be defined}

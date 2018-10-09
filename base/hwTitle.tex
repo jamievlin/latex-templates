@@ -7,14 +7,22 @@
 \centering
 
 \vspace*{2.5cm}
-        
-{\Large \coursename
+
+\ifx\hwtitlelarge\undefined
+\newcommand{\hwtitlelarge}{
+\coursename
 \ifdefined\coursesec
 , Section \coursesec
 \fi
 \vspace{0.5cm}
 
-\assignmenttitle}
+\assignmenttitle
+}
+\fi
+
+{\Large 
+\hwtitlelarge
+}
 
 \vspace{3.5cm}
         
@@ -28,5 +36,7 @@ Student ID: \studentid
 \today
 
 \end{titlepage}
+
+\let\hwtitlelarge\undefined
    
 \fi

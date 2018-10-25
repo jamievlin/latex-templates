@@ -204,7 +204,7 @@
 {\@ifstar {\in \mathcal{D}} {= \infty}}
 
 \newcommand{\converges}
-{\@ifstar {\; \in \mathcal{C}} { < \infty}}
+{\@ifstar {\in \mathcal{C}} { < \infty}}
 
 \makeatother
 
@@ -215,9 +215,17 @@
 \newcommand{\col}{\operatorname{col}}
 \newcommand{\row}{\operatorname{row}}
 \newcommand{\rank}{\operatorname{rank}}
+
 \newcommand{\Trace}{\operatorname{Trace}}
-\newcommand{\trace}{\operatorname{trace}}
-\newcommand{\Null}{\operatorname{null}}
+
+\makeatletter
+\newcommand{\Null}
+	{\@ifstar {\operatorname{n}} {\operatorname{null}}}
+\newcommand{\trace}
+	{\@ifstar {\operatorname{tr}} {\operatorname{trace}}}
+\makeatother
+\newcommand{\nullspace}{\Null}
+
 \newcommand{\End}{\operatorname{End}}
 \newcommand{\Id}{\operatorname{Id}}
 
@@ -266,8 +274,8 @@
 \newcommand{\proj}{\doubleP}
 
 % arg-stuff
-\newcommand{\argmax}{\operatorname{argmax}}
-\newcommand{\argmin}{\operatorname{argmin}}
+\newcommand{\argmax}{\operatorname*{argmax}}
+\newcommand{\argmin}{\operatorname*{argmin}}
 
 
 \ifdefined\DONOTDEFINE

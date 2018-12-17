@@ -30,6 +30,8 @@
 		\fi
 		\usepackage[margin=\MARGINS]{geometry}
 		\fi
+		\usepackage{verbatim}
+
 
 		\ifxetex
 			\usepackage{anyfontsize}
@@ -54,7 +56,7 @@
 	\fi
 
 	% theorems styling
-	\ifx\SECTIONTHM\undefined
+	\ifx\THMCOUNTER\undefined
 		\theoremstyle{plain}
 		\newtheorem{theorem}{Theorem}
 		\newtheorem{lemma}{Lemma}
@@ -63,12 +65,12 @@
 		\newtheorem{define}{Definition}
 	\else
 		\theoremstyle{plain}
-		\newtheorem{theorem}{Theorem}[section]
-		\newtheorem{lemma}{Lemma}[section]
-		\newtheorem{corollary}{Corollary}[section]
+		\newtheorem{theorem}{Theorem}[\THMCOUNTER]
+		\newtheorem{lemma}{Lemma}[\THMCOUNTER]
+		\newtheorem{corollary}{Corollary}[\THMCOUNTER]
 		\theoremstyle{definition}
 
-		\newtheorem{define}{Definition}[section]
+		\newtheorem{define}{Definition}[\THMCOUNTER]
 
 	\fi
 
@@ -161,6 +163,9 @@
 	\newcommand{\grad}{\nabla}
 	\newcommand{\dl}{\partial}
 	\newcommand{\normal}{\hat{n}}
+	\newcommand{\Aut}{\operatorname{Aut}}
+	\newcommand{\Res}{\operatorname{Res}}
+	\newcommand{\sinc}{\operatorname{sinc}}
 
 	\makeatletter
 	\newcommand{\curl}
@@ -292,11 +297,13 @@
 	\newcommand{\Spec}{\operatorname{Spec}}
 	\newcommand{\Frac}{\operatorname{Frac}}
 	\newcommand{\proj}{\doubleP}
+	\newcommand{\im}{\operatorname{im}}
 
 	% arg-stuff
 	\newcommand{\argmax}{\operatorname*{argmax}}
 	\newcommand{\argmin}{\operatorname*{argmin}}
-
+	\newcommand{\Hom}{\operatorname{Hom}}
+	\newcommand{\negate}{\operatorname{\sim}}
 
 	\ifdefined\DONOTDEFINE
 		\errmessage{DONOTDEFINE should not be defined}

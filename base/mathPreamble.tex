@@ -49,7 +49,7 @@
 	\fi
 
 	% theorems styling
-	\ifx\SECTIONTHM\undefined
+	\ifx\THMCOUNTER\undefined
 		\theoremstyle{plain}
 		\newtheorem{theorem}{Theorem}
 		\newtheorem{lemma}{Lemma}
@@ -58,12 +58,12 @@
 		\newtheorem{define}{Definition}
 	\else
 		\theoremstyle{plain}
-		\newtheorem{theorem}{Theorem}[section]
-		\newtheorem{lemma}{Lemma}[section]
-		\newtheorem{corollary}{Corollary}[section]
+		\newtheorem{theorem}{Theorem}[\THMCOUNTER]
+		\newtheorem{lemma}{Lemma}[\THMCOUNTER]
+		\newtheorem{corollary}{Corollary}[\THMCOUNTER]
 		\theoremstyle{definition}
 
-		\newtheorem{define}{Definition}[section]
+		\newtheorem{define}{Definition}[\THMCOUNTER]
 
 	\fi
 

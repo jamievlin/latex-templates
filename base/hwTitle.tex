@@ -1,12 +1,17 @@
+\ifx\HWTITLEDEF\undefined
+
+\newcommand{\HWTITLEDEF}{}
+
 \ifx\CROWDMARK\undefined
 
 \ifx\assignmenttitle\undefined
 \newcommand{\assignmenttitle}{Assignment \assignmentnum}
 \fi
+
 \begin{titlepage}
 \centering
 
-\vspace*{2.5cm}
+\vspace*{4.5cm}
 
 \ifx\hwtitlelarge\undefined
 \newcommand{\hwtitlelarge}{
@@ -24,14 +29,13 @@
 \hwtitlelarge
 }
 
-\vspace{3.5cm}
+\vspace{1cm}
         
 \textit{\studentname}
 
 \vspace{.5cm}
-
-Student ID: \studentid
-\vspace{3.5cm}
+\textit{Student ID: \studentid}
+\vspace{1.5cm}
 
 \today
 
@@ -39,4 +43,5 @@ Student ID: \studentid
 
 \let\hwtitlelarge\undefined
    
+\fi
 \fi

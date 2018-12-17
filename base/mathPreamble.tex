@@ -24,7 +24,12 @@
 		\usepackage{mathrsfs}
 		\usepackage{alltt}
 
-
+		\ifdefined\SMALLMARGINS
+		\ifx\MARGINS\undefined
+		\newcommand{\MARGINS}{1.5in}
+		\fi
+		\usepackage[margin=\MARGINS]{geometry}
+		\fi
 
 		\ifxetex
 			\usepackage{anyfontsize}

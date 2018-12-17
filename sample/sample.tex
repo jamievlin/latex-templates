@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage{import}
-\newcommand{\SMALLMARGINS}{}
+% \newcommand{\SMALLMARGINS}{}
 \newcommand{\basedir}{..}
 \import{\basedir/base/}{mathPreamble}
 
@@ -26,5 +26,18 @@ Prove by induction that for $n\in\naturals$,
 \solution
 
 I guess, this is just a sample, so the solution is left as an excersice.
+
+\problemsec
+
+State the definition of prime ideals.
+
+\solution
+
+As in \parencite[126]{hungerford}, an ideal $P\subset R$ is prime if for any ideal $A,B \subset R$,
+\[
+    AB\subset R\implies A\subset R \Or B\subset R
+\]
+
+\printbibliography
 
 \end{document}

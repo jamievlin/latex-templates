@@ -259,3 +259,5 @@ TSWLatexianTemp*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+cpy2dropbox.ps1

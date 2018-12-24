@@ -83,7 +83,7 @@
 	\newcounter{currproblem}
 
 	\newcommand{\problemsec}{\stepcounter{currproblem} \problem{\thecurrproblem}}
-	\newcommand{\problem}[1]{\section*{Problem {#1}} \pdfbookmark[section]{Problem {#1}}{p{#1}}}
+	\newcommand{\problem}[1]{\section{Problem {#1}}}
 
 	\ifdefined\CROWDMARK
 		\newcommand{\NEWPAGEPROBLEM}{} % crowdmark pagebreak

@@ -116,7 +116,8 @@
 		\fancyhead[L]{}
 				\titleformat{\section}
 		{\centering  \scshape}{\thesection.}{1em}{}
-
+				\titleformat{\subsection}
+		{\centering  \scshape}{\thesubsection.}{1em}{}
 		\fi 
 	\fi
 
@@ -242,6 +243,8 @@
 
 	\newcommand{\Trace}{\operatorname{Trace}}
 	\newcommand{\ord}{\operatorname{ord}}
+        \newcommand{\Mat}{\operatorname{Mat}}
+        \newcommand{\GL}{\operatorname{GL}}
 
 	\makeatletter
 	\newcommand{\Null}
@@ -298,6 +301,13 @@
 	\newcommand{\Frac}{\operatorname{Frac}}
 	\newcommand{\proj}{\doubleP}
 	\newcommand{\im}{\operatorname{im}}
+	
+	% shorthand for blackboard letters
+	\newcommand{\bbR}{\doubleR}
+	\newcommand{\bbQ}{\doubleQ}
+	\newcommand{\bbZ}{\doubleZ}
+	\newcommand{\bbC}{\doubleC}
+	\newcommand{\bbN}{\doubleN}
 
 	% arg-stuff
 	\newcommand{\argmax}{\operatorname*{argmax}}

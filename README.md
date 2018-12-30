@@ -1,7 +1,7 @@
-# My Latex Tempaltes
+# My Latex Templates
 
-A collection of bib files, preambles and sample usage for my LaTeX tempaltes.
-Use it as you will - no need to credit me unless you are redistributing these files in verbatim/modified *.tex/bib form.
+A collection of bib files, preambles and sample usage for my LaTeX templates.
+Use it as you will - no need to credit me unless you are redistributing these files in verbatim/modified \*.tex/bib form.
 
 ## Disclaimer
 
@@ -12,4 +12,3 @@ I'm not responsible if something went wrong, including but not limited to:
 - This repository makes your dog wants to eat your homework.
 - Your teacher gave you a zero because they didn't want your assignment typesetted.
 - And more...
-

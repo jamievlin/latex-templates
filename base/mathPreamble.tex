@@ -23,6 +23,7 @@
 		\usepackage[numbered]{bookmark}
 		\usepackage{mathrsfs}
 		\usepackage{alltt}
+		\usepackage[most]{tcolorbox}
 
 		\ifdefined\SMALLMARGINS
 		\ifx\MARGINS\undefined
@@ -74,6 +75,7 @@
 
 	\fi
 
+
 	\theoremstyle{remark}
 	\newtheorem*{remark}{Remark}
 	\newtheorem*{example}{Example}
@@ -99,6 +101,26 @@
 		\else
 			\errmessage{Base repo directory for bib not found!}
 		\fi
+	\fi
+
+
+
+	\ifdefined\USESOLUTIONBOX
+	\newtcolorbox{solutionbox}[1][]{
+	enhanced,
+	arc=0pt,
+	outer arc=0pt,
+	colback=white,
+	boxrule=0.8pt,
+	#1
+	}
+	\else
+	\renewenvironment{solution}{
+		\bigbreak
+		\noindent \textit{Solution.}
+	}{ \hfill $\blacksquare$
+	\noindent\rule{\textwidth}{0.4pt}
+	\bigbreak}
 	\fi
 
 	\ifx\NOFANCY\undefined

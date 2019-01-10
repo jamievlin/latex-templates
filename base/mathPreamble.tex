@@ -103,26 +103,6 @@
 		\fi
 	\fi
 
-
-
-	\ifdefined\USESOLUTIONBOX
-	\newtcolorbox{solutionbox}[1][]{
-	enhanced,
-	arc=0pt,
-	outer arc=0pt,
-	colback=white,
-	boxrule=0.8pt,
-	#1
-	}
-	\else
-	\renewenvironment{solution}{
-		\bigbreak
-		\noindent \textit{Solution.}
-	}{ \hfill $\blacksquare$
-	\noindent\rule{\textwidth}{0.4pt}
-	\bigbreak}
-	\fi
-
 	\ifx\NOFANCY\undefined
 		\pagestyle{fancy}
 
@@ -145,6 +125,25 @@
 
 	\newcommand{\solution}{\subsubsection*{Solution}}
 	\newcommand{\parttitle}[1]{\subsection*{Part {#1}}}
+
+	\ifdefined\USESOLUTIONBOX
+	\newtcolorbox{solutionbox}[1][]{
+	enhanced,
+	arc=0pt,
+	outer arc=0pt,
+	colback=white,
+	boxrule=0.8pt,
+	#1
+	}
+	\else
+	\renewenvironment{solution}{
+		\bigbreak
+		\noindent \textit{Solution.}
+	}{ \hfill $\blacksquare$
+	\noindent\rule{\textwidth}{0.4pt}
+	\bigbreak}
+	\fi
+
 	\newcommand{\intr}[2]{\int_{2}^{1}}
 	\newcommand{\intba}{\int^b_a}
 	\newcommand{\intzeroone} {\int_0^1}

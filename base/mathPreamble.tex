@@ -119,7 +119,7 @@
 				\titleformat{\section}
 		{\centering  \scshape}{\thesection.}{1em}{}
 				\titleformat{\subsection}
-		{\centering  \scshape}{\thesubsection.}{1em}{}
+		{\centering  \bfseries }{\thesubsection.}{.5em}{}
 		\fi 
 	\fi
 
@@ -136,11 +136,12 @@
 	#1
 	}
 	\else
-	\renewenvironment{solution}{
-		\bigbreak
-		\noindent \textit{Solution.}
-	}{ \hfill $\blacksquare$
-	\noindent\rule{\textwidth}{0.4pt}
+	\renewenvironment{solution}{%
+		\bigbreak%
+		\noindent \textit{Solution.}%
+	}{%
+	\hspace*{0pt}\hfill\null$\blacksquare$%
+	% \noindent\rule{\textwidth}{0.4pt}
 	\bigbreak}
 	\fi
 

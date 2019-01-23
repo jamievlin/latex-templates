@@ -4,23 +4,30 @@
 
 \ifx\CROWDMARK\undefined
 
-\ifx\assignmenttitle\undefined
-\newcommand{\assignmenttitle}{Assignment \assignmentnum}
+\ifx\assignmentkeyword\undefined
+\newcommand{\assignmentkeyword}{Assignment}
 \fi
+
+\ifx\assignmenttitle\undefined
+\newcommand{\assignmenttitle}{\assignmentkeyword \ \assignmentnum}
+\fi
+
+
 
 \begin{titlepage}
 \centering
 
-\vspace*{4.5cm}
+\vspace*{3cm}
 
 \ifx\hwtitlelarge\undefined
 \newcommand{\hwtitlelarge}{
 \coursename
-\ifdefined\coursesec
-, Section \coursesec
-\fi
-\vspace{0.5cm}
 
+\ifdefined\coursesec
+Section \coursesec
+\fi
+
+\vspace{2cm}
 \assignmenttitle
 }
 \fi
@@ -29,19 +36,25 @@
 \hwtitlelarge
 }
 
-\vspace{1cm}
+\vspace{2cm}
         
-\textit{\studentname}
+\studentname
 
-\vspace{.5cm}
-\textit{Student ID: \studentid}
-\vspace{1.5cm}
+\ifdefined\studentid
+Student ID: \studentid
+\fi
+
+\ifdefined\studentemail
+\texttt{\studentemail}
+\fi
+\vspace{3cm}
 
 \today
 
 \end{titlepage}
 
 \let\hwtitlelarge\undefined
+\let\assignmentkeyword\undefined
    
 \fi
 \fi

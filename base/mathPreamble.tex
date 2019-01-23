@@ -123,6 +123,28 @@
 		\fi 
 	\fi
 
+	\newcommand{\integratedtitle}{%
+	\ifx\assignmentcaption\undefined
+	\newcommand{\assignmentcaption}{Assignment \assignmentnum}
+	\fi
+	{
+	% \noindent \hrulefill%
+
+	\noindent%
+	\studentname \hfill \coursename%
+	
+	\noindent%
+	\studentid, \ifdefined\studentemail \texttt{\studentemail} \fi
+	\hfill \assignmentcaption%
+
+	\noindent \hfill \today%
+
+	}%
+	\noindent \hrulefill
+	\let\integratedtitle\undefined%
+	\let\assignmentcaption\undefined%
+	}%
+
 	\newcommand{\solution}{\subsubsection*{Solution}}
 	\newcommand{\parttitle}[1]{\subsection*{Part {#1}}}
 

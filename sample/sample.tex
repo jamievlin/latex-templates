@@ -1,18 +1,20 @@
 \documentclass{article}
 
 \usepackage{import}
-% \newcommand{\SMALLMARGINS}{}
+\usepackage[margin=1.5in]{geometry}
 \newcommand{\basedir}{..}
+\newcommand{\USESCSTYLE}{}
 \import{\basedir/base/}{mathPreamble}
 
 \newcommand{\assignmentnum}{\RN{1}}
 \newcommand{\studentname}{Dorothy Gale}
 \newcommand{\studentid}{1234567}
+\newcommand{\studentemail}{dorothygale@landofoz.net}
 \newcommand{\coursename}{MATH 117}
 \newcommand{\coursesec}{A1}
 
 \begin{document}
-\import{\basedir/base/}{hwTitle}
+\integratedtitle
 \let\basedir\undefined
 
 \problemsec
@@ -23,20 +25,21 @@ Prove by induction that for $n\in\naturals$,
 \sum_{j=1}^n j=\frac{n(n+1)}{2}
 \]
 
-\solution
-
-I guess, this is just a sample, so the solution is left as an excersice.
+\begin{solution}
+I guess, this is just a sample, so the solution is left as an exercise.
+\end{solution}
 
 \problemsec
 
 State the definition of prime ideals.
 
-\solution
 
+\begin{solution}
 As in \parencite[126]{hungerford}, an ideal $P\subset R$ is prime if for any ideal $A,B \subset R$,
 \[
     AB\subset R\implies A\subset R \Or B\subset R
 \]
+\end{solution}
 
 \printbibliography
 

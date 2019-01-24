@@ -134,10 +134,11 @@
 	\studentname \hfill \coursename%
 	
 	\noindent%
-	\studentid, \ifdefined\studentemail \texttt{\studentemail} \fi
+	\ifdefined\studentemail \texttt{\studentemail} \else \studentid \fi
 	\hfill \assignmentcaption%
 
-	\noindent \hfill \today%
+	\noindent%
+	\ifdefined\studentemail \studentid \fi \hfill \today%
 
 	}%
 	\noindent \hrulefill

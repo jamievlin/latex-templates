@@ -1,0 +1,171 @@
+% As a sample LaTeX document, this is an actual assignment 
+% written in LaTeX with my template for MATH 417, 
+% Honors Real Variables (Measure Theory) at University of Alberta.
+% This source has been released with permission with the instructor,
+% Professor John C. Bowman as the solutions are available at
+% https://www.math.ualberta.ca/~bowman/m417/assign1.pdf
+
+% Of course, don't plagiarize! Just because you have the solutions
+% to whatever problems there is does not mean you should copy it.
+% The only way to learn math is to do the problems yourself!
+
+% Moreover, I do not warrant any correctness of these solutions.
+% These are simply what I have written which may contain mistakes.
+
+% UPDATE (2/1/19): Unfortunately, by the request of my professor
+% John C. Bowman with potential plagiarism in future years,
+% I removed all the solutions and replaced them with [Redacted].
+% However, all the problem texts are kept.
+
+% ------- END DISCLAIMER ------------- 
+
+\documentclass{article}
+\usepackage{import}
+
+% Change this if you want a different margin.
+% Current margin is smaller than the LaTeX default but larger than
+% Standard word documents.
+\newcommand{\SMALLMARGINS}{1.5in}
+
+% Change this directory if you put your template files in a different directory.
+\newcommand{\basedir}{../../}
+
+% Comment out this if you want an alternative header (that I no longer support)
+\newcommand{\USESCSTYLE}{}
+
+% If you are using Crowdmark or require new page for each problem, uncomment this.
+% \newcommand{\CROWDMARK}{}
+
+
+\import{\basedir/base/}{mathPreamble}
+
+% Assignment number and Course Name
+\newcommand{\assignmentnum}{1}
+\newcommand{\coursename}{MATH 417}
+
+% Who are you, obviously.
+% Don't submit assignments under my name, please :(
+\newcommand{\studentname}{Supakorn ``Jamie'' Rassameemasmuang}
+\newcommand{\studentid}{1234567}
+\newcommand{\studentemail}{supakorn.jamie@ualberta.ca}
+\newcommand{\coursesec}{Q1}
+
+\begin{document}
+
+% Comment this out if you do not want the title.
+% Alternatively, use 
+% \import{\basedir/base/}{hwTitle}
+
+% for a cover page.
+\integratedtitle
+
+\problemsec
+
+Let $(S_n)_1^\infty$ sequences of sets.
+Define
+\[
+    \liminf_{n\to\infty} S_n\defeq \bigcup_{k=1}^\infty \bigcap_{n=k}^\infty S_n, \quad \limsup_{n\to\infty} S_n\defeq \bigcap_{k=1}^\infty \bigcup_{n=k}^\infty S_n.
+\]
+Show that
+\[
+    \liminf_{n\to\infty} S_n\subset \limsup_{n\to\infty} S_n. 
+\]
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+Let $(S_j)_1^\infty$ sequence of sets.
+Define $T_1=S_1$ and
+\[
+    T_j\defeq S_j \setminus \bigcup_{i=1}^{j-1}S_i, \quad j\in 2,3, \ldots.
+\]
+Prove that $(T_j)_1^\infty$ is a sequence of pairwise disjoint sets satisfying
+\[
+    \bigcup_{j=1}^n T_j=\bigcup_{j=1}^n S_j, \quad \text{all }n\in\naturals
+\]
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+Suppose that $A, B\subset \real^d$ with $m^*(A),m^*(B)<\infty$.
+Show that
+\[
+    \abs{m^*(A)-m^*(B)}\le m^*(A\symdiff B)
+\]
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+Give examples of
+\begin{enumerate}
+    \item a bounded countable union of Jordan measurable sets that is not Jordan measurable;
+    \item a bounded countable intersection of Jordan measurable sets that is not Jordan measurable.
+\end{enumerate}
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+Determine whether each of the following sets are countable.
+Justify your answers.
+
+\subsection{Part (a)}
+The set of all mappings from $1\ldots,N$ to $\naturals$ where $N\in\naturals$ is fixed.
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\subsection{Part (b) and (c)}
+The set of all mappings $S$ from $\naturals$ to $[0,1]$ and the restriction $R$ of $S$ such that each $f\in R$ is eventually $0$ (i.e. $\lim_{n\to\infty} f(n)=0$ for $f\in R$)
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\subsection{Part (d)}
+The set of all finite subset of $\naturals$.
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+
+Let $(x_\alpha)_{\alpha\in A}$ a collection of $x_\alpha \in \real_{\ge 0}$ such that
+\[
+    \sum_{\alpha\in A} x_\alpha <\infty.
+\]
+Show that $x_\alpha=0$ for all but at most countably many $\alpha \in A$, even if $A$ is itself uncountable.
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+Let $S$ a set.
+Prove that there is no surjective map from $S$ to $\powerset(S)$.
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+
+\problemsec
+
+Let $S$ a countable set.
+Show that
+\[
+    \mathfrak{F}(S)\defeq \set{F\subset S: F \text{ finite}}
+\]
+
+\begin{solution}
+    [Redacted].
+\end{solution}
+\end{document}

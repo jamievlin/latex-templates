@@ -3,7 +3,6 @@
 
 	\ifx\NOPACKAGES\undefined
 		\usepackage{float}
-		\PassOptionsToPackage{hyphens}{url}\usepackage[breaklinks=true]{hyperref}
 		\usepackage{breakurl}
 		\usepackage{fancyhdr}
 		\usepackage{commath}
@@ -16,6 +15,7 @@
 		\usepackage{asymptote}
 		\usepackage{csvsimple}
 		\usepackage{titlesec}
+		\PassOptionsToPackage{hyphens}{url}\usepackage[breaklinks=true]{hyperref}
 
 		\usepackage{systeme}
 		\usepackage{cancel}
@@ -361,6 +361,14 @@
 	\newcommand{\argmin}{\operatorname*{argmin}}
 	\newcommand{\Hom}{\operatorname{Hom}}
 	\newcommand{\negate}{\operatorname{\sim}}
+
+	% alg. number theory
+
+	\newcommand{\disc}{\operatorname{disc}}
+	\newcommand{\lcm}{\operatorname{lcm}}
+	\newcommand{\caO}{\mathcal{O}}
+	\newcommand{\Ok}{\caO_K}
+	\newcommand{\Cl}{\operatorname{Cl}}
 
 	\ifdefined\DONOTDEFINE
 		\errmessage{DONOTDEFINE should not be defined}

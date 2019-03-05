@@ -1,0 +1,142 @@
+
+% As a sample LaTeX document, this is an actual assignment 
+% written in LaTeX with my template for MATH 417, 
+% Honors Real Variables (Measure Theory) at University of Alberta.
+% This source has been released with permission with the instructor,
+% Professor John C. Bowman as the solutions are available at
+% https://www.math.ualberta.ca/~bowman/m417/assign3.pdf
+
+% ------- END DISCLAIMER ------------- 
+
+% https://www.math.ualberta.ca/~bowman/m417/assign3.pdf
+\documentclass{article}
+\usepackage{import}
+
+% For the meaning behind these commands, see math417hw1/m417hw1.tex
+
+\newcommand{\SMALLMARGINS}{1.5in}
+\newcommand{\basedir}{../../}
+\newcommand{\USESCSTYLE}{}
+
+% \newcommand{\CROWDMARK}{}
+
+\import{\basedir/base/}{mathPreamble}
+
+\newcommand{\assignmentnum}{3}
+\newcommand{\coursename}{MATH 417}
+
+\newcommand{\studentname}{Supakorn ``Jamie'' Rassameemasmuang}
+\newcommand{\studentid}{1234567}
+\newcommand{\studentemail}{supakorn.jamie@ualberta.ca}
+\newcommand{\coursesec}{Q1}
+
+
+\begin{document}
+
+\integratedtitle
+
+\problemsec
+
+What is the wrong in the following argument that \textit{The set $(0,1)$ is countable}?
+Express the open set $(0,1)$ as a union of open intervals $I_x$ centered on each real $x\in (0,1)$:
+\[
+    \bigcup_{x\in (0,1)} I_x=(0,1).
+\]
+Each interval $I_x$ contains a rational which we can use as a label for that interval.
+Since there are only countably many rational numbers, there are countably many labels.
+Hence the above union actually contains only a countable number of intervals, each centered at a real number.
+There are therefore only a countable number of real numbers.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\problemsec 
+
+Let $S\subset \real^d$ such that
+\[
+    m^*(E\cap S) + m^*(E\cap S^c) = m(E).
+\]
+for all elementary set $E$.
+Show that $S$ is Lebesgue measurable.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\problemsec
+
+Suppose $S_n\subset \real^d$ for $n\in \naturals$ are Lebesgue measurable sets that converge pointwise to a set $S$.
+
+\subsection{Part (a)}
+
+Show that $S$ is Lebesgue measurable.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\subsection{Part (b)}
+\textit{Dominated Convergence}.
+Suppose that $S_n$ are all contained inside another Lebesgue measurable set $F$ of finite measure.
+Show that $m(S_n)\to m(S)$ as $n\to \infty$.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\subsection{Part (c)}
+
+Give a counterexample to show that the dominated convergence theorem fails if the $S_n$ are not contained in a set of finite measure, even if we assume that $m(S_n)$ are all uniformly bounded.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\problemsec
+
+Show that an unsigned function $f:\real^d\to[0,\infty]$ is a simple function if and only if it is measurable and takes on finitely many values.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\problemsec
+
+Let $d,d'\in \naturals$.
+
+\subsection{Part (a)}
+
+If $A\subset \real^d$ and $B\subset \real^d$, show that
+\[
+    m^{d+d'*}(A\times B)\le m^{d*}(A)m^{d'*}(B).
+\]
+where $m^{d*}$ denotes the $d$-dimensional Outer Lebesgue Measure.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\subsection{Part (b)}
+Let $A\subset \real^d$ and $B\subset \real^{d'}$ Lebesgue measurable sets (not necessarily of finite measure).
+Show that $A\times B$ is Lebesgue Measurable with
+\[
+    m(A\times B)=m(A)m(B).
+\]
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+
+\problemsec
+
+If $f:\real^d\to [0,\infty]$ is Lebesgue measurable, show that the Lebesgue measure of
+\[
+    A_f \defeq \set{(x,y)\in \real^{d+1} : 0\le y \le f(x)}
+\]
+exists and equals $\int_{\real^d} f$.
+
+\begin{solution}
+    Solution removed.
+\end{solution}
+\end{document}

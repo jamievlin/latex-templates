@@ -1,9 +1,23 @@
 \ifx\BASEMATHPREAMBLE\undefined
 	\newcommand{\BASEMATHPREAMBLE}{}
-
+	
+	\ifdefined\DEFAULTSETTINGS
+		\newcommand{\SMALLMARGINS}{}
+		\newcommand{\USESCSTYLE}{}
+		\newcommand{\ADDPARSKIP}{}
+		\let\DEFAULTSETTINGS\undefined
+	\fi
+	
 	\ifx\NOPACKAGES\undefined
 		\usepackage{float}
+		\usepackage{ifpdf}
+		
+		\ifpdf
+		%nothing!
+		\else
 		\usepackage{breakurl}
+		\fi
+		
 		\usepackage{fancyhdr}
 		\usepackage{commath}
 		\usepackage{mathtools}
@@ -25,11 +39,16 @@
 		\usepackage{alltt}
 		\usepackage[most]{tcolorbox}
 
+		\ifdefined\ADDPARSKIP
+		\setlength{\parskip}{0.1em}
+		\fi
+
 		\ifdefined\SMALLMARGINS
 		\ifx\MARGINS\undefined
 		\newcommand{\MARGINS}{1.5in}
 		\fi
 		\usepackage[margin=\MARGINS]{geometry}
+		\let\MARGINS\undefined
 		\fi
 		\usepackage{verbatim}
 
@@ -146,8 +165,8 @@
 	\let\assignmentcaption\undefined%
 	}%
 
-	\newcommand{\solution}{\subsubsection*{Solution}}
-	\newcommand{\parttitle}[1]{\subsection*{Part {#1}}}
+	% \newcommand{\solution}{\subsubsection*{Solution}}
+	\newcommand{\parttitle}[1]{\subsection{Part {#1}}}
 
 	\ifdefined\USESOLUTIONBOX
 	\newtcolorbox{solutionbox}[1][]{
@@ -159,7 +178,7 @@
 	#1
 	}
 	\else
-	\renewenvironment{solution}{%
+	\newenvironment{solution}{%
 		\bigbreak%
 		\noindent \textit{Solution.}%
 	}{%
@@ -290,7 +309,6 @@
 
 	\newcommand{\Trace}{\operatorname{Trace}}
 	\newcommand{\tr}{\operatorname{tr}}
-	
 	\newcommand{\ord}{\operatorname{ord}}
         \newcommand{\Mat}{\operatorname{Mat}}
         \newcommand{\GL}{\operatorname{GL}}
@@ -337,7 +355,6 @@
 	\newcommand{\V}{\Var}
 	\newcommand{\Cov}{\operatorname{Cov}}
 	\newcommand{\from}{\mid}
-
 	\newcommand{\eff}{\operatorname{eff}}
 	\newcommand{\ol}{\overline}
 
@@ -348,7 +365,10 @@
 	% alg.geometry
 	\newcommand{\affine}{\doubleA}
 	\newcommand{\Jac}{\operatorname{Jac}}
-	\newcommand{\Rad}{\operatorname{Rad}}
+	\makeatletter
+	\newcommand{\Rad}
+		{\@ifstar {\sqrt}{\operatorname{Rad}}}
+	\makeatother
 	\newcommand{\Spec}{\operatorname{Spec}}
 	\newcommand{\Frac}{\operatorname{Frac}}
 	\newcommand{\proj}{\doubleP}
@@ -382,5 +402,4 @@
 	\ifdefined\DONOTDEFINE
 		\errmessage{DONOTDEFINE should not be defined}
 	\fi
-
 \fi

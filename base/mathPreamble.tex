@@ -5,6 +5,7 @@
 		\newcommand{\SMALLMARGINS}{}
 		\newcommand{\USESCSTYLE}{}
 		\newcommand{\ADDPARSKIP}{}
+		\newcommand{\USEXY}{}
 		\let\DEFAULTSETTINGS\undefined
 	\fi
 	
@@ -38,6 +39,10 @@
 		\usepackage{mathrsfs}
 		\usepackage{alltt}
 		\usepackage[most]{tcolorbox}
+		
+		\ifdefined\USEXY
+		\usepackage[all, cmtip]{xy}
+		\fi
 
 		\ifdefined\ADDPARSKIP
 		\setlength{\parskip}{0.1em}
@@ -103,7 +108,7 @@
 
 	\newcounter{currproblem}
 
-	\newcommand{\problemsec}{\stepcounter{currproblem} \problem{\thecurrproblem}}
+	\newcommand{\problemsec}{\stepcounter{currproblem}\problem{\thecurrproblem}{}}
 	\newcommand{\problem}[1]{\section{Problem {#1}}}
 
 	\ifdefined\CROWDMARK
@@ -139,16 +144,26 @@
 		{\centering  \scshape}{\thesection.}{1em}{}
 				\titleformat{\subsection}
 		{\centering  \bfseries }{\thesubsection.}{.5em}{}
+					\titleformat{\subsubsection}
+		{\centering \bfseries }{\thesubsubsection.}{.5em}{}
 		\fi 
 	\fi
 
+	\fancypagestyle{noheader}{
+		%\setlength{\headsep}{0pt}
+		%\setlength{\headheight}{0pt}
+		\fancyhead[C]{}
+	}
+
 	\newcommand{\integratedtitle}{%
+	\ifx\CROWDMARK\undefined%
 	\ifx\assignmentcaption\undefined
 	\newcommand{\assignmentcaption}{Assignment \assignmentnum}
 	\fi
-	{
+	{%
+	% \thispagestyle{noheader}% Don't display the page header
 	% \noindent \hrulefill%
-
+	\setlength{\parskip}{0pt}
 	\noindent%
 	\studentname \hfill \coursename%
 	
@@ -160,9 +175,10 @@
 	\ifdefined\studentemail \studentid \fi \hfill \today%
 
 	}%
-	\noindent \hrulefill
-	\let\integratedtitle\undefined%
+	\noindent \hrulefill%
 	\let\assignmentcaption\undefined%
+	\fi%
+	\let\integratedtitle\undefined%
 	}%
 
 	% \newcommand{\solution}{\subsubsection*{Solution}}
@@ -300,15 +316,22 @@
 	\makeatother
 
 	% linear algebra stuff
-
+	
+	\ifx\USEXY\undefined
 	\newcommand{\Col}{\operatorname{Col}}
 	\newcommand{\Row}{\operatorname{Row}}
+	\else
+	\newcommand{\oCol}{\operatorname{Col}}
+	\newcommand{\oRow}{\operatorname{Row}}
+	\fi
+	
 	\newcommand{\col}{\operatorname{col}}
 	\newcommand{\row}{\operatorname{row}}
 	\newcommand{\rank}{\operatorname{rank}}
 
 	\newcommand{\Trace}{\operatorname{Trace}}
 	\newcommand{\tr}{\operatorname{tr}}
+	
 	\newcommand{\ord}{\operatorname{ord}}
         \newcommand{\Mat}{\operatorname{Mat}}
         \newcommand{\GL}{\operatorname{GL}}
@@ -387,7 +410,7 @@
 	\newcommand{\Hom}{\operatorname{Hom}}
 	\newcommand{\negate}{\operatorname{\sim}}
 
-	% alg. number theory
+	% alg. number theory>
 
 	\newcommand{\disc}{\operatorname{disc}}
 	\newcommand{\lcm}{\operatorname{lcm}}

@@ -203,6 +203,13 @@
 	\bigbreak}
 	\fi
 
+	\newenvironment{pfsketch}{%
+		\bigbreak \noindent \textit{Sketch of Proof.}%
+	}{%
+		\hspace*{0pt}\hfill\null$\square$%
+		\bigbreak%
+	}%
+
 	\newcommand{\intr}[2]{\int_{2}^{1}}
 	\newcommand{\intba}{\int^b_a}
 	\newcommand{\intzeroone} {\int_0^1}
@@ -272,6 +279,17 @@
 	\newcommand{\comp}{\circ}
 
 	\newcommand{\PC}{\mathcal{PC}}
+
+	% fraktur script
+	\newcommand{\mfra}{\mathfrak{a}}
+	\newcommand{\mfrb}{\mathfrak{b}}
+	\newcommand{\mfrp}{\mathfrak{p}}
+	\newcommand{\mfrm}{\mathfrak{m}}
+	\newcommand{\mfrq}{\mathfrak{q}}
+	
+	\newcommand{\caB}{\mathcal{B}}
+	\newcommand{\tounif}{\overset{\mathrm{unif.}}{\to}}
+
 
 	% basic sets
 
@@ -403,6 +421,7 @@
 	\newcommand{\bbZ}{\doubleZ}
 	\newcommand{\bbC}{\doubleC}
 	\newcommand{\bbN}{\doubleN}
+	\newcommand{\bbI}{\mathbb{I}}
 
 	% arg-stuff
 	\newcommand{\argmax}{\operatorname*{argmax}}

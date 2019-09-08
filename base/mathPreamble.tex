@@ -1,5 +1,15 @@
 \ifx\BASEMATHPREAMBLE\undefined
 	\newcommand{\BASEMATHPREAMBLE}{}
+
+	\ifdefined\MACROSONLY
+		\newcommand{\USEXY}{}
+		\newcommand{\NOFANCY}{}
+		\newcommand{\NOCOMMATH}{}
+		\newcommand{\NOTHEOREMS}{}
+		\newcommand{\NOTHOMEWORK}{}
+		\newcommand{\NOTITLESEC}{}
+		\let\MACROSONLY\undefined
+	\fi
 	
 	\ifdefined\DEFAULTSETTINGS
 		\newcommand{\SMALLMARGINS}{}
@@ -18,18 +28,37 @@
 		\else
 		\usepackage{breakurl}
 		\fi
-		
+
+		\ifx\NOFANCY\undefined
 		\usepackage{fancyhdr}
+		\fi
+
+		\ifx\NOCOMMATH\undefined
 		\usepackage{commath}
+		\fi
+
+
 		\usepackage{mathtools}
+
+		\ifx\NOBIB\undefined
 		\usepackage[style=ieee]{biblatex}
+		\fi 
+
 		\usepackage{amssymb}
 		\usepackage{siunitx}
 		\usepackage{marvosym}
+
+		\ifx\NOTHEOREMS\undefined
 		\usepackage{amsthm}
+		\fi
+
 		\usepackage{asymptote}
 		\usepackage{csvsimple}
+
+		\ifx\NOTITLESEC\undefined
 		\usepackage{titlesec}
+		\fi
+		
 		\PassOptionsToPackage{hyphens}{url}\usepackage[breaklinks=true]{hyperref}
 
 		\usepackage{systeme}
@@ -80,6 +109,7 @@
 
 	\fi
 
+	\ifx\NOTHEOREMS\undefined
 	% theorems styling
 	\ifx\THMCOUNTER\undefined
 		\theoremstyle{plain}
@@ -99,13 +129,14 @@
 
 	\fi
 
-
 	\theoremstyle{remark}
 	\newtheorem*{remark}{Remark}
 	\newtheorem*{example}{Example}
 
+	\fi
 	% problem formatting
 
+	\ifx\NOTHOMEWORK\undefined
 	\newcounter{currproblem}
 
 	\newcommand{\problemsec}{\stepcounter{currproblem}\problem{\thecurrproblem}{}}
@@ -119,6 +150,9 @@
 		\newcommand{\sectionbreak}{\clearpage}
 	\fi
 
+	\fi
+
+	\ifx\NOBIB\undefined
 	\ifx\EXCLUDEDEFAULTBIB\undefined
 		\ifdefined\basedir
 			\addbibresource{\basedir/bib/base.bib}
@@ -126,6 +160,7 @@
 			\errmessage{Base repo directory for bib not found!}
 		\fi
 	\fi
+	\fi 
 
 	\ifx\NOFANCY\undefined
 		\pagestyle{fancy}
@@ -149,6 +184,7 @@
 		\fi 
 	\fi
 
+	\ifx\NOTHOMEWORK\undefined
 	\fancypagestyle{noheader}{
 		%\setlength{\headsep}{0pt}
 		%\setlength{\headheight}{0pt}
@@ -201,6 +237,8 @@
 	\hspace*{0pt}\hfill\null$\blacksquare$%
 	% \noindent\rule{\textwidth}{0.4pt}
 	\bigbreak}
+	\fi
+
 	\fi
 
 	\newenvironment{pfsketch}{%
@@ -429,8 +467,7 @@
 	\newcommand{\Hom}{\operatorname{Hom}}
 	\newcommand{\negate}{\operatorname{\sim}}
 
-	% alg. number theory>
-
+	% alg. number theory
 	\newcommand{\disc}{\operatorname{disc}}
 	\newcommand{\lcm}{\operatorname{lcm}}
 	\newcommand{\caO}{\mathcal{O}}

@@ -61,7 +61,9 @@
 		
 		\PassOptionsToPackage{hyphens}{url}\usepackage[breaklinks=true]{hyperref}
 
-		\usepackage{systeme}
+                \ifdefined\ENABLESYSTEME
+                \usepackage{systeme}
+                \fi
 		\usepackage{cancel}
 		\usepackage{gauss}
 		\usepackage[numbered]{bookmark}
@@ -402,6 +404,7 @@
 
 	\newcommand{\End}{\operatorname{End}}
 	\newcommand{\Id}{\operatorname{Id}}
+        \newcommand{\id}{\operatorname{id}}
 
 	\newcommand{\dsum}{\oplus}
 	\newcommand{\cyc}{\abr}
@@ -451,6 +454,8 @@
 	\newcommand{\Spec}{\operatorname{Spec}}
 	\newcommand{\Frac}{\operatorname{Frac}}
 	\newcommand{\proj}{\doubleP}
+        \newcommand{\hgt}{\operatorname{ht}}
+
 	\newcommand{\im}{\operatorname{im}}
 	
 	% shorthand for blackboard letters
@@ -460,10 +465,13 @@
 	\newcommand{\bbC}{\doubleC}
 	\newcommand{\bbN}{\doubleN}
 	\newcommand{\bbI}{\mathbb{I}}
+        \newcommand{\bbA}{\doubleA}
 
 	% arg-stuff
 	\newcommand{\argmax}{\operatorname*{argmax}}
 	\newcommand{\argmin}{\operatorname*{argmin}}
+
+        % more algebra & logic stuff
 	\newcommand{\Hom}{\operatorname{Hom}}
 	\newcommand{\negate}{\operatorname{\sim}}
 
@@ -477,6 +485,7 @@
 	% measure theory
 	\newcommand{\bfone}{\mathbf{1}}
 	\newcommand{\indfunc}{\bfone}
+
 
 	\ifdefined\DONOTDEFINE
 		\errmessage{DONOTDEFINE should not be defined}

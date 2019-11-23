@@ -280,9 +280,19 @@
 
 	\newcommand{\lhospitals}{{L'H\^{o}pital's }}
 	\newcommand{\sumtoinfty}[1]{\sum_{{#1}}^\infty }
-	\newcommand{\abr}[1]{\left \langle {#1} \right \rangle}
-	\newcommand{\flr}[1]{\left \lfloor {#1} \right \rfloor}
-	\newcommand{\cil}[1]{\left \lceil {#1} \right \rceil}
+	\makeatletter
+		\newcommand{\abrAutosize}[1]{\left \langle {#1} \right \rangle}
+		\newcommand{\flrAutosize}[1]{\left \lfloor {#1} \right \rfloor}
+		\newcommand{\cilAutosize}[1]{\left \lceil {#1} \right \rceil}
+
+		\newcommand{\abrNoAutosize}[1]{\langle {#1} \rangle}
+		\newcommand{\flrNoAutosize}[1]{\lfloor {#1} \rfloor}
+		\newcommand{\cilNoAutosize}[1]{\lceil {#1} \rceil}
+
+		\newcommand{\abr}{\@ifstar{\abrNoAutosize}{\abrAutosize}}
+		\newcommand{\flr}{\@ifstar{\flrNoAutosize}{\flrAutosize}}
+		\newcommand{\cil}{\@ifstar{\cilNoAutosize}{\cilAutosize}}
+	\makeatother
 	\renewcommand{\Re}{\operatorname{Re}}
 	\renewcommand{\Im}{\operatorname{Im}}
 	\newcommand{\Log}{\operatorname{Log}}

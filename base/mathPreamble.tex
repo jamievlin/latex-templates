@@ -24,24 +24,24 @@
 		\usepackage{ifpdf}
 		
 		\ifpdf
-		%nothing!
+			%nothing!
 		\else
-		\usepackage{breakurl}
+			\usepackage{breakurl}
 		\fi
 
 		\ifx\NOFANCY\undefined
-		\usepackage{fancyhdr}
+			\usepackage{fancyhdr}
 		\fi
 
 		\ifx\NOCOMMATH\undefined
-		\usepackage{commath}
+			\usepackage{commath}
 		\fi
 
 
 		\usepackage{mathtools}
 
 		\ifx\NOBIB\undefined
-		\usepackage[style=ieee]{biblatex}
+			\usepackage[style=ieee]{biblatex}
 		\fi 
 
 		\usepackage{amssymb}
@@ -49,21 +49,21 @@
 		\usepackage{marvosym}
 
 		\ifx\NOTHEOREMS\undefined
-		\usepackage{amsthm}
+			\usepackage{amsthm}
 		\fi
 
 		\usepackage{asymptote}
 		\usepackage{csvsimple}
 
 		\ifx\NOTITLESEC\undefined
-		\usepackage{titlesec}
+			\usepackage{titlesec}
 		\fi
 		
 		\PassOptionsToPackage{hyphens}{url}\usepackage[breaklinks=true]{hyperref}
 
-                \ifdefined\ENABLESYSTEME
-                \usepackage{systeme}
-                \fi
+		\ifdefined\ENABLESYSTEME
+			\usepackage{systeme}
+		\fi
 		\usepackage{cancel}
 		\usepackage{gauss}
 		\usepackage[numbered]{bookmark}
@@ -72,19 +72,19 @@
 		\usepackage[most]{tcolorbox}
 		
 		\ifdefined\USEXY
-		\usepackage[all, cmtip]{xy}
+			\usepackage[all, cmtip]{xy}
 		\fi
 
 		\ifdefined\ADDPARSKIP
-		\setlength{\parskip}{0.1em}
+			\setlength{\parskip}{0.1em}
 		\fi
 
 		\ifdefined\SMALLMARGINS
 		\ifx\MARGINS\undefined
-		\newcommand{\MARGINS}{1.5in}
+			\newcommand{\MARGINS}{1.5in}
 		\fi
-		\usepackage[margin=\MARGINS]{geometry}
-		\let\MARGINS\undefined
+			\usepackage[margin=\MARGINS]{geometry}
+			\let\MARGINS\undefined
 		\fi
 		\usepackage{verbatim}
 

@@ -8,6 +8,7 @@
 		\newcommand{\NOTHEOREMS}{}
 		\newcommand{\NOTHOMEWORK}{}
 		\newcommand{\NOTITLESEC}{}
+		\newcommand{\NOENVIRONPKG}{}
 		\let\MACROSONLY\undefined
 	\fi
 	
@@ -35,6 +36,10 @@
 
 		\ifx\NOCOMMATH\undefined
 			\usepackage{commath}
+		\fi
+		
+		\ifx\NOENVIRONPKG\undefined
+			\usepackage{environ}
 		\fi
 
 
@@ -239,6 +244,16 @@
 	\hspace*{0pt}\hfill\null$\blacksquare$%
 	% \noindent\rule{\textwidth}{0.4pt}
 	\bigbreak}
+	
+	\NewEnviron{unmarkedsolution}{%
+	\begin{solution}
+	\ifx\MARKEDONLY\undefined%
+	\BODY%
+	\else%
+	Solution redacted.
+	\fi%
+	\end{solution}%
+	}
 	\fi
 
 	\fi

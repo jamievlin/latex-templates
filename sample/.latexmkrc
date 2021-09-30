@@ -16,4 +16,4 @@ add_cus_dep("asy","tex",0,"asy");
 @default_files=('sample.tex');
 $pdf_mode=1;
 
-$clean_ext = "pre bbl synctex.gz run.xml";
+$clean_ext = "pre pdf fls aux bbl synctex.gz run.xml";
